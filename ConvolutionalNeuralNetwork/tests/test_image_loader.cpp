@@ -5,36 +5,32 @@ using namespace std;
 
 int main()
 {
+    cout<<endl;
+    
     Image image;
 
     if (!loadImage("examples/cat01.jpg", image))
     {
-        cout << "Failed to load image." << endl;
+        cout << "Failed to load image." <<endl;
         return 1;
     }
 
-    cout << "Image loaded successfully!" << endl;
+    else
+    {
+        cout << "Image loaded successfully!" <<endl;
+    }
 
-    cout << "Width: "
-         << image.getWidth()
-         << endl;
-
-    cout << "Height: "
-         << image.getHeight()
-         << endl;
-
-    cout << "Channels: "
-         << image.getChannels()
-         << endl;
+    cout << "Width: "<< image.getWidth()<<endl;
+    cout << "Height: "<< image.getHeight()<<endl;
+    cout << "Channels: "<< image.getChannels()<<endl;
 
     vector<Pixel>& pixels = image.getPixels();
 
     cout << endl;
     cout << "First pixel:" << endl;
-
-    cout << "R: " << static_cast<int>(pixels[0].r) << endl;
-    cout << "G: " << static_cast<int>(pixels[0].g) << endl;
-    cout << "B: " << static_cast<int>(pixels[0].b) << endl;
+    cout << "R: " << static_cast<int>(pixels[0].r) <<endl;
+    cout << "G: " << static_cast<int>(pixels[0].g) <<endl;
+    cout << "B: " << static_cast<int>(pixels[0].b) <<endl<<endl;
 
     return 0;
 }
