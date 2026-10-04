@@ -3,19 +3,19 @@
 #include <stdexcept>
 #include <vector>
 
-#include "cnn/preprocess.hpp"
+#include "preprocess.hpp"
 
 using namespace std;   
 using namespace cnn;
 using Vec = vector<double>;
 
 static int failures = 0;
-#define CHECK(cond)                                                                       \
-    do {                                                                                  \
-        if (!(cond)) {                                                                    \
-            cerr << "FAIL " << __FILE__ << ":" << __LINE__ << "  " << #cond << "\n";      \
-            ++failures;                                                                   \
-        }                                                                                 \
+#define CHECK(cond)                                                                       
+    do {                                                                                  
+        if (!(cond)) {                                                                    
+            cerr << "FAIL " << __FILE__ << ":" << __LINE__ << "  " << #cond << "\n";      
+            ++failures;                                                                   
+        }                                                                                 
     } while (0)
 
 template <typename F>
