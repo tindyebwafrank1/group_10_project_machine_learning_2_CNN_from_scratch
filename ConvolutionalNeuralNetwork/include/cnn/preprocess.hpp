@@ -83,10 +83,8 @@ inline Tensor makeOutput(std::size_t n, std::size_t c, std::size_t h, std::size_
 
 }  // namespace detail
 
-// ===================================================== layout / channel order
+// layout / channel order
 
-/// Interleaved HWC buffer (what image files give you) -> Tensor {1,C,H,W}.
-/// Values are copied as-is (e.g. 0..255); no scaling happens here.
 template <typename T>
 Tensor fromInterleaved(const T* pixels, std::size_t count, std::size_t height, std::size_t width,
                        std::size_t channels) {
@@ -151,7 +149,7 @@ inline Tensor reverseChannels(const Tensor& in) {
     return permuteChannels(in, order);
 }
 
-// ============================================================ colour convert
+// colour convert
 
 /// {N,3,H,W} RGB -> {N,1,H,W} using luminance 0.299 R + 0.587 G + 0.114 B.
 inline Tensor rgbToGrayscale(const Tensor& in) {
@@ -199,7 +197,7 @@ inline Tensor toChannels(const Tensor& in, std::size_t target) {
     detail::fail("toChannels", "input must have 1 or 3 channels");
 }
 
-// ================================================================== resizing
+// resizing
 
 /// Resize H and W of every sample/channel.
 /// Nearest: pixel centre mapping. Bilinear: half-pixel centres, edges clamped.
@@ -250,7 +248,7 @@ inline Tensor resize(const Tensor& in, std::size_t outH, std::size_t outW,
     return out;
 }
 
-// ============================================================= normalization
+// normalization
 
 /// x / maxValue (maxValue > 0). Use 255 for 8-bit images.
 inline Tensor scaleToUnit(const Tensor& in, double maxValue = 255.0) {
@@ -335,7 +333,7 @@ inline ChannelStats computeChannelStats(const Tensor& in) {
     return s;
 }
 
-// ==================================================================== batches
+// batches
 
 /// Concatenate tensors along N. All must share C, H, W.
 inline Tensor stackBatch(const std::vector<Tensor>& items) {
@@ -360,7 +358,7 @@ inline Tensor stackBatch(const std::vector<Tensor>& items) {
     return out;
 }
 
-// ================================================================== pipeline
+//pipeline
 
 inline void validateConfig(const PreprocessConfig& cfg) {
     if ((cfg.target_height == 0) != (cfg.target_width == 0)) {

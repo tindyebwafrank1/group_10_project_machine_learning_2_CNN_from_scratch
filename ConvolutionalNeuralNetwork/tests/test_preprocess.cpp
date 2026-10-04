@@ -5,7 +5,7 @@
 
 #include "cnn/preprocess.hpp"
 
-using namespace std;   // the team uses this: proves no clashes
+using namespace std;   
 using namespace cnn;
 using Vec = vector<double>;
 
