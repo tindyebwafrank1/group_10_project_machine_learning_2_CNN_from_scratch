@@ -1,10 +1,21 @@
 #include "image.h"
 
+using namespace std;
+
 Image::Image()
 {
     width = 0;
     height = 0;
     channels = 0;
+}
+
+Image::Image(int width, int height, int channels)
+{
+    this->width = width;
+    this->height = height;
+    this->channels = channels;
+
+    pixels.resize(width * height);
 }
 
 int Image::getWidth() const
@@ -22,22 +33,28 @@ int Image::getChannels() const
     return channels;
 }
 
-void Image::setWidth(int w)
+Pixel& Image::getPixel(int x, int y)
 {
-    width = w;
+    if (x < 0 || x >= width || y < 0 || y >= height)
+    {
+        throw out_of_range("Pixel coordinates out of range");
+    }
+
+    return pixels[y * width + x];
 }
 
-void Image::setHeight(int h)
+void Image::setPixel(int x, int y, const Pixel& pixel)
 {
-    height = h;
-}
+    if (x < 0 || x >= width || y < 0 || y >= height)
+    {
+        throw out_of_range("Pixel coordinates out of range");
+    }
 
-void Image::setChannels(int c)
-{
-    channels = c;
+    pixels[y * width + x] = pixel;
 }
 
 vector<Pixel>& Image::getPixels()
 {
     return pixels;
 }
+
