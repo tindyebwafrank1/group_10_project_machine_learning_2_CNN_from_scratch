@@ -1,42 +1,46 @@
-#include "tensor.h"
+#include "tensor.hpp"
 #include <stdexcept>
+using namespace std;
 
+// default constructor: empty tensor
 Tensor::Tensor()
 {
+    shape = {0, 0, 0, 0};
 }
 
-Tensor::Tensor(const std::vector<int>& shape)
+// creates a tensor of size n*c*h*w filled with zeros
+Tensor::Tensor(size_t n, size_t c, size_t h, size_t w)
 {
-    this->shape = shape;
-    int total = 1;
-    for (size_t i = 0; i < shape.size(); i++)
-    {
-        total *= shape[i];
-    }
-    data.assign(total, 0.0f);
+    shape = {n, c, h, w};
+    data.assign(n * c * h * w, 0.0);
 }
 
-int Tensor::size() const
+// total number of values
+size_t Tensor::size() const
 {
     return data.size();
 }
 
-const std::vector<int>& Tensor::getShape() const
+// index = n*(C*H*W) + c*(H*W) + h*W + w
+double& Tensor::operator()(size_t n, size_t c, size_t h, size_t w)
 {
-    return shape;
+    return data[n * (shape[1] * shape[2] * shape[3])
+              + c * (shape[2] * shape[3])
+              + h * shape[3]
+              + w];
 }
 
-float& Tensor::operator()(int n, int c, int h, int w)
+// same as above but for const tensors (read only)
+const double& Tensor::operator()(size_t n, size_t c, size_t h, size_t w) const
 {
-    return data[((n * shape[1] + c) * shape[2] + h) * shape[3] + w];
+    return data[n * (shape[1] * shape[2] * shape[3])
+              + c * (shape[2] * shape[3])
+              + h * shape[3]
+              + w];
 }
 
-float Tensor::operator()(int n, int c, int h, int w) const
-{
-    return data[((n * shape[1] + c) * shape[2] + h) * shape[3] + w];
-}
-
-void Tensor::fill(float value)
+// set every value to the same number
+void Tensor::fill(double value)
 {
     for (size_t i = 0; i < data.size(); i++)
     {
@@ -44,16 +48,68 @@ void Tensor::fill(float value)
     }
 }
 
-void Tensor::reshape(const std::vector<int>& newShape)
+// change the shape, the total size must stay the same
+void Tensor::reshape(size_t n, size_t c, size_t h, size_t w)
 {
-    int total = 1;
-    for (size_t i = 0; i < newShape.size(); i++)
+    if (n * c * h * w != data.size())
     {
-        total *= newShape[i];
+        throw invalid_argument("reshape: total size must stay the same");
     }
-    if (total != size())
+    shape = {n, c, h, w};
+}
+
+// element by element addition
+Tensor Tensor::add(const Tensor& other) const
+{
+    if (shape != other.shape)
     {
-        throw std::invalid_argument("reshape: size mismatch");
+        throw invalid_argument("add: shapes do not match");
     }
-    shape = newShape;
+    Tensor result(shape[0], shape[1], shape[2], shape[3]);
+    for (size_t i = 0; i < data.size(); i++)
+    {
+        result.data[i] = data[i] + other.data[i];
+    }
+    return result;
+}
+
+// element by element subtraction
+Tensor Tensor::subtract(const Tensor& other) const
+{
+    if (shape != other.shape)
+    {
+        throw invalid_argument("subtract: shapes do not match");
+    }
+    Tensor result(shape[0], shape[1], shape[2], shape[3]);
+    for (size_t i = 0; i < data.size(); i++)
+    {
+        result.data[i] = data[i] - other.data[i];
+    }
+    return result;
+}
+
+// element by element multiplication
+Tensor Tensor::multiply(const Tensor& other) const
+{
+    if (shape != other.shape)
+    {
+        throw invalid_argument("multiply: shapes do not match");
+    }
+    Tensor result(shape[0], shape[1], shape[2], shape[3]);
+    for (size_t i = 0; i < data.size(); i++)
+    {
+        result.data[i] = data[i] * other.data[i];
+    }
+    return result;
+}
+
+// multiply every value by one number
+Tensor Tensor::scale(double factor) const
+{
+    Tensor result(shape[0], shape[1], shape[2], shape[3]);
+    for (size_t i = 0; i < data.size(); i++)
+    {
+        result.data[i] = data[i] * factor;
+    }
+    return result;
 }
