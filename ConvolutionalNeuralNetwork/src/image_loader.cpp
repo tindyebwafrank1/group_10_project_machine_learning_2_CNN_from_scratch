@@ -27,9 +27,7 @@ bool loadImage(const string& filename, Image& image)
         return false;
     }
 
-    image.setWidth(width);
-    image.setHeight(height);
-    image.setChannels(3);
+    image = Image(width, height, 3);
 
     vector<Pixel>& pixels = image.getPixels();
 
