@@ -27,7 +27,7 @@ int main() {
     
     
     assert(&(weights(k, c, h, w)) == &(weights.data[expected_flat_index]));
-    std::cout << " -> Pass: Safely interfaces with Agatha's flat indexing model." << std::endl;
+    std::cout << " -> Pass: Safely interfaces with flat indexing model." << std::endl;
 
     // Test 3: Structural Validation for Downstream Broadcasting 
     assert(biases.shape[0] == 1 && biases.shape[1] == K && biases.shape[2] == 1 && biases.shape[3] == 1);
