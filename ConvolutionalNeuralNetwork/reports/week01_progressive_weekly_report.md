@@ -4,7 +4,7 @@
 
 --Group Member --                --Work done--
 
-1 Tindyebwa Frank         |   Image file loading engine                      
+1 Tindyebwa Frank(Leader) |   Image file loading engine                      
 2 Kweyamba Peter          |   Image preprocessing                                             
 3 Atugonza Jeremy         |   Image representation data structure            
 4 Namukasa Agatha         |   Tensor class implementation                         
