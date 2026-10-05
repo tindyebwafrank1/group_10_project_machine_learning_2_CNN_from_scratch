@@ -39,9 +39,9 @@ public:
     }
 };
 
-// ============================================================================
+
 // MODULE 8: SYSTEM INTEGRATION & DEMO PIPELINE MANAGER
-// ============================================================================
+
 class PipelineIntegrationManager {
 public:
     // THIS PART HANDLES: Connecting function hooks to accept the other 7 developers' modules
@@ -50,7 +50,7 @@ public:
     typedef Tensor (*WeightsInitializerEngine)(size_t, size_t, size_t, size_t);
     typedef Tensor (*ConvolutionMathEngine)(const Tensor&, const Tensor&);
 
-    // THIS PART HANDLES: The automated unit testing built by you (Edrine M8) to pass sprint criteria
+    // THIS PART HANDLES: The automated unit testing 
     static bool run_system_validation_tests(ConvolutionMathEngine architecture_conv) {
         cout << "[M8 Integration] Launching automated framework diagnostic checks...\n";
         
@@ -95,9 +95,9 @@ public:
         WeightsInitializerEngine weight_init_stage,
         ConvolutionMathEngine conv_processing_stage
     ) {
-        cout << "=========================================================\n";
+        
         cout << "  LAUNCHING INTEGRATED CNN DATA PROCESSING ENVIRONMENT     \n";
-        cout << "=========================================================\n";
+        
 
         try {
             // THIS PART EXECUTES: binary image parsing file engine
@@ -119,9 +119,6 @@ public:
             Tensor feature_maps = conv_processing_stage(processing_tensor, kernel_filters);
 
             // THIS PART EXECUTES:  output diagnostic status report logging
-            cout << "\n=========================================================\n";
-            cout << "               WEEK 1 SYSTEM METRICS SUMMARY             \n";
-            cout << "=========================================================\n";
             cout << "Input Tensor Layout   : {" << processing_tensor.shape[0] << ", " << processing_tensor.shape[1] 
                  << ", " << processing_tensor.shape[2] << ", " << processing_tensor.shape[3] << "}\n";
             cout << "Kernel Tensor Layout  : {" << kernel_filters.shape[0] << ", " << kernel_filters.shape[1] 
