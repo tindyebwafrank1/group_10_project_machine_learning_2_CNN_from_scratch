@@ -27,6 +27,20 @@ struct PoolingParams {
     }
 };
 
+// Output size along one spatial axis (no padding):
+//   out = floor((input - window) / stride) + 1
+// Unsigned integer division already floors for non-negative values.
+// Throws std::invalid_argument if the window does not fit in the input.
+inline std::size_t pooled_dim(std::size_t input,
+                              std::size_t window,
+                              std::size_t stride) {
+    if (window == 0 || stride == 0)
+        throw std::invalid_argument("pooled_dim: window and stride must be > 0");
+    if (window > input)
+        throw std::invalid_argument("pooled_dim: window larger than input");
+    return (input - window) / stride + 1;
+}
+
 }  // namespace cnn
 
 #endif  // CNN_POOLING_HPP
