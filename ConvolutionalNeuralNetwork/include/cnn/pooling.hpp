@@ -41,6 +41,43 @@ inline std::size_t pooled_dim(std::size_t input,
     return (input - window) / stride + 1;
 }
 
+// Shared base class so Max and Average pooling do not duplicate
+// parameter handling or dimension logic.
+class Pooling2D {
+public:
+    explicit Pooling2D(PoolingParams params);
+    virtual ~Pooling2D() = default;
+
+    // Applies pooling to a feature map. Implemented in src/ (Week 2).
+    virtual Tensor forward(const Tensor& input) const = 0;
+
+    std::size_t output_height(std::size_t input_h) const {
+        return pooled_dim(input_h, params_.window_h, params_.stride_h);
+    }
+    std::size_t output_width(std::size_t input_w) const {
+        return pooled_dim(input_w, params_.window_w, params_.stride_w);
+    }
+
+    const PoolingParams& params() const noexcept { return params_; }
+
+protected:
+    PoolingParams params_;
+};
+
+// Takes the maximum value in each window.
+class MaxPooling2D : public Pooling2D {
+public:
+    explicit MaxPooling2D(PoolingParams params = PoolingParams{});
+    Tensor forward(const Tensor& input) const override;
+};
+
+// Takes the mean of the values in each window.
+class AveragePooling2D : public Pooling2D {
+public:
+    explicit AveragePooling2D(PoolingParams params = PoolingParams{});
+    Tensor forward(const Tensor& input) const override;
+};
+
 }  // namespace cnn
 
 #endif  // CNN_POOLING_HPP
