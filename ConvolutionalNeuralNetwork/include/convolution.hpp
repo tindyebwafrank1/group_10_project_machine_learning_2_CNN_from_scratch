@@ -2,7 +2,7 @@
 #define CNN_CONVOLUTION_HPP
 
 #include <cstddef>
-#include "cnn/tensor.hpp"   // Agatha's Tensor (M4)
+#include "cnn/tensor.hpp"
 
 namespace cnn {
 
