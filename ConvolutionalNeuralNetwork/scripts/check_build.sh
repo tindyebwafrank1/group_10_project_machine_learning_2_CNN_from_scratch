@@ -1,19 +1,9 @@
-#!/usr/bin/env bash
-# Ops build audit (Peter). Builds each listed test and demo with the project's strict
-# flags, runs them, then repeats under address + undefined-behaviour sanitizers, and under
-# valgrind when it is installed. Any warning or failure stops the script.
-#
-# Usage (from the project root, the folder that contains include/, tests/, examples/):
-#   ./scripts/check_build.sh 2>&1 | tee build-check.log
-# Options (environment variables):
-#   INC="-Iinclude"                      where the headers are       (default: -I. -Iinclude -Isrc)
-#   TESTS="test_preprocess test_stride"  tests/<name>.cpp to build   (default shown)
-#   DEMOS="stride_demo"                  examples/<name>.cpp to run  (default shown)
+
 set -euo pipefail
 
 INC="${INC:--I. -Iinclude -Isrc}"
-TESTS="${TESTS:-test_preprocess test_stride}"
-DEMOS="${DEMOS:-stride_demo}"
+TESTS="${TESTS:-test_preprocess test_stride test_fully_connected}"
+DEMOS="${DEMOS:-stride_demo fully_connected_demo}"
 OUT=build-check
 STRICT="-O3 -Wall -Wextra -pedantic -std=c++17 -Werror"
 
