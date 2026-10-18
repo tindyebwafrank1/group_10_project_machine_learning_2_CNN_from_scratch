@@ -1,4 +1,4 @@
-#include "image_loader.h"
+#include "image_loader.hpp"
 #include <iostream>
 
 using namespace std;
@@ -9,7 +9,7 @@ int main()
     
     Image image;
 
-    if (!loadImage("examples/cat01.jpg", image))
+    if (!loadImage("data/cat01.jpg", image))
     {
         cout << "Failed to load image." <<endl;
         return 1;
