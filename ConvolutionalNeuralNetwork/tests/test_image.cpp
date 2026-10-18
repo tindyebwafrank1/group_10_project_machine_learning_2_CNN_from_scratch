@@ -1,5 +1,5 @@
 #include <iostream>
-#include "image_loader.h"
+#include "image_loader.hpp"
 
 using namespace std;
 
