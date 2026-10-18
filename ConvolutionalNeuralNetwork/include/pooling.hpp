@@ -1,5 +1,5 @@
-#ifndef CNN_POOLING_HPP
-#define CNN_POOLING_HPP
+#ifndef POOLING_HPP
+#define POOLING_HPP
 
 #include <cstddef>
 #include <stdexcept>
@@ -80,4 +80,4 @@ public:
 
 }  // namespace cnn
 
-#endif  // CNN_POOLING_HPP
+#endif  // POOLING_HPP

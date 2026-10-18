@@ -5,16 +5,16 @@
 
 Group Members and Work Done
 
-| ID | Group Member                 | Work Done |
+|   | Group Member                  | Work Done |
 
 | 1 | Tindyebwa Frank (Leader)      | Zero padding implementation (Valid/Same modes) |
-| 2 | Kweyamba Peter (Risk Manager) | Stride implementation and sub-sampling loop |
-| 3 | Atugonza Jeremy               | ReLU activation function module |
-| 4 | Namukasa Agatha               | Sigmoid and Tanh activation modules |
-| 5 | Mugarura Allan                | Max pooling layer implementation |
-| 6 | Mugenyi Edrine                | CNN feature integration and Week-2 demo |
-| 7 | Wanyenze Joan Natseba         | Average pooling layer implementation |
-| 8 | Evarista                      | CNN feature-extraction block builder |
+| 2 | Kweyamba Peter (Risk Manager) | Stride implementation and sub-sampling loop    |
+| 3 | Atugonza Jeremy               | ReLU activation function module                |
+| 4 | Namukasa Agatha               | Sigmoid and Tanh activation modules            |
+| 5 | Mugarura Allan                | Max pooling layer implementation               |
+| 6 | Mugenyi Edrine                | CNN feature integration and Week-2 demo        |
+| 7 | Wanyenze Joan Natseba         | Average pooling layer implementation           |
+| 8 | Evarista                      | CNN feature-extraction block builder           |
 
 Progress
 
