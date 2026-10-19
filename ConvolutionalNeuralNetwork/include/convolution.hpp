@@ -2,7 +2,7 @@
 #define CNN_CONVOLUTION_HPP
 
 #include <cstddef>
-#include "cnn/tensor.hpp"
+#include "tensor.hpp"
 
 namespace cnn {
 

@@ -1,4 +1,4 @@
-#include "cnn/convolution.hpp"
+#include "convolution.hpp"
 #include <cmath>
 #include <iostream>
 #include <stdexcept>
