@@ -3,7 +3,7 @@
 #include <iostream>
 #include <vector>
 
-#include "fully_connected_trainable.hpp"
+#include "../include/fully_connected_trainable.hpp"
 
 using namespace std;
 using namespace cnn;

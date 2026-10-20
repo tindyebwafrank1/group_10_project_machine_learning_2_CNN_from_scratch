@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 
-#include "preprocess.hpp"
+#include "../include/preprocess.hpp"
 
 using namespace std;
 using namespace cnn;
@@ -9,7 +9,7 @@ using namespace cnn;
 int main() {
     try {
         // 4x4 RGB gradient as interleaved bytes, the same layout a file loader produces.
-        // With Frank's loader, replace this block with:
+        // i will check With Frank's loader, replace this block with:
         //   Tensor raw = fromInterleaved(img.pixels.data(), img.pixels.size(),
         //                                img.height, img.width, img.channels);
         vector<unsigned char> px(4 * 4 * 3);
