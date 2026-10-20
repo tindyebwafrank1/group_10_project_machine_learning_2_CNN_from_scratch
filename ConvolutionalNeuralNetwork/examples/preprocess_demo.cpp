@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 
-#include "cnn/preprocess.hpp"
+#include "preprocess.hpp"
 
 using namespace std;
 using namespace cnn;

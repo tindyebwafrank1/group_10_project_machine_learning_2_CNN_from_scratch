@@ -7,26 +7,20 @@
 #include <string>
 #include <limits>
 #include <algorithm>
+#include <iostream>
+#include "tensor.hpp"
 
 namespace cnn {
 
-struct Tensor {
-    std::vector<size_t> shape; // Expected: {N, C, H, W}
-    std::vector<double> data;
-
-    Tensor() = default;
-    
-    Tensor(size_t n, size_t c, size_t h, size_t w) 
-        : shape({n, c, h, w}), data(n * c * h * w, 0.0) {}
-};
-
 class FullyConnected {
-public:
-    FullyConnected(size_t in_features, size_t out_features)
-        : in_features_(in_features), out_features_(out_features) {
+public:  
+  FullyConnected(size_t in_features, size_t out_features)
+        : in_features_(in_features), 
+          out_features_(out_features),
+          cached_input_(0, 0, 0, 0) // <--- Initialize the Tensor here
+    {
         
-        if (in_features == 0 || out_features == 0 || 
-            in_features == static_cast<size_t>(-1) || out_features == static_cast<size_t>(-1)) {
+        if (in_features == 0 || out_features == 0) {
             throw std::invalid_argument("FullyConnected: feature dimensions must be positive and valid");
         }
 
@@ -106,7 +100,8 @@ public:
     
     void clearCache() {
         has_cache_ = false;
-        cached_input_ = Tensor();
+        // Reset to an empty, 0-dimensional tensor using your existing constructor
+        cached_input_ = Tensor(0, 0, 0, 0); 
     }
 
 private:
