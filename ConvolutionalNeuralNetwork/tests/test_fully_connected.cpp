@@ -3,7 +3,7 @@
 #include <stdexcept>
 #include <vector>
 
-#include "fully_connected.hpp"
+#include "../include/fully_connected.hpp"
 
 using namespace std;
 using namespace cnn;
