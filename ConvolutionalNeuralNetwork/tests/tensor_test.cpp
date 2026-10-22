@@ -1,5 +1,5 @@
 #include <iostream>
-#include "tensor.hpp"
+#include "../include/tensor.hpp"
 using namespace std;
 
 int main()

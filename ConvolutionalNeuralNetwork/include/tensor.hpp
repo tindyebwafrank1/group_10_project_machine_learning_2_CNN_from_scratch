@@ -1,74 +1,5 @@
-// #ifndef TENSOR_H
-// #define TENSOR_H
-
-// #include <vector>
-// #include <cstddef>
-
-// // Tensor stores 4D data (N, C, H, W) in one flat block of memory
-// class Tensor
-// {
-// public:
-//     std::vector<double> data; // flat storage of all values
-//     std::vector<size_t> shape; // {N, C, H, W}
-
-//     Tensor();
-//     Tensor(size_t n, size_t c, size_t h, size_t w);
-
-//     size_t size() const;
-
-//     // access one value using (n, c, h, w)
-//     double& operator()(size_t n, size_t c, size_t h, size_t w);
-//     const double& operator()(size_t n, size_t c, size_t h, size_t w) const;
-
-//     void fill(double value);
-//     void reshape(size_t n, size_t c, size_t h, size_t w);
-
-//     // basic operations (return a new Tensor)
-//     Tensor add(const Tensor& other) const;
-//     Tensor subtract(const Tensor& other) const;
-//     Tensor multiply(const Tensor& other) const; // element by element
-//     Tensor scale(double factor) const;
-// };
-
-// #endif
-
 #ifndef CNN_TENSOR_HPP
 #define CNN_TENSOR_HPP
-
-// =============================================================================
-// tensor.hpp - the data container used by every module of the CNN library.
-//
-// A Tensor is a 4-D block of doubles with shape {N, C, H, W}:
-//     N = batch size (number of images), C = channels, H = height, W = width.
-// The numbers are stored in ONE contiguous vector, row by row:
-//
-//     Index(n, c, h, w) = n*(C*H*W) + c*(H*W) + h*W + w
-//
-// Interface agreed in the Execution Guide (kept exactly, so existing code works):
-//     public  std::vector<double> data;          the numbers
-//     public  std::vector<size_t> shape;         {N, C, H, W}
-//     Tensor(n, c, h, w)                         zero-filled
-//     double&       operator()(n, c, h, w)
-//     const double& operator()(n, c, h, w) const
-//
-// Why `data` and `shape` are public: the guide fixes this interface and the other
-// modules read them directly inside their inner loops. The price is that outside
-// code could make a tensor inconsistent (for example by resizing `data`). To
-// protect against that, every module checks its input with isValid() / validate(),
-// and the Tensor offers safe alternatives (at(), reshaped(), sample(), ...).
-//
-// Errors:  bad sizes or shapes             -> std::invalid_argument
-//          index outside the tensor (at()) -> std::out_of_range
-// operator() only checks its indices with assert(), which is active unless the
-// program is compiled with -DNDEBUG (the official build command does not set it).
-//
-// Numbers are NOT checked for NaN or infinity by the arithmetic, to keep it fast.
-// Use allFinite() / requireFinite() where it matters.
-//
-// There is no default constructor on purpose: a tensor always has a valid shape.
-// The class is in the global namespace, as in the guide, and this header has no
-// "using namespace" line.
-// =============================================================================
 
 #include <algorithm>
 #include <cassert>
@@ -85,25 +16,25 @@ public:
     std::vector<double> data;
     std::vector<std::size_t> shape;  // {N, C, H, W}
 
-    // ------------------------------------------------------------ construction
-
-    /// Zero-filled tensor of shape {n, c, h, w}.
-    /// @throws std::invalid_argument if a dimension is zero or n*c*h*w overflows.
+    // Construction
+    Tensor();                                   
+    // Zero-filled tensor of shape {n, c, h, w}.
+    
     Tensor(std::size_t n, std::size_t c, std::size_t h, std::size_t w)
         : data(checkedSize(n, c, h, w), 0.0), shape{n, c, h, w} {}
 
-    /// Tensor with every element equal to `value`.
+    // Tensor with every element equal to `value`.
     static Tensor filled(std::size_t n, std::size_t c, std::size_t h, std::size_t w, double value) {
         Tensor t(n, c, h, w);
         t.fill(value);
         return t;
     }
 
-    /// Zero-filled tensor (same as the constructor, but reads clearly at the call site).
+    // Zero-filled tensor (same as the constructor, but reads clearly at the call site).
     static Tensor zeros(std::size_t n, std::size_t c, std::size_t h, std::size_t w) { return Tensor(n, c, h, w); }
 
-    /// Tensor built from existing numbers; values.size() must equal n*c*h*w.
-    /// @throws std::invalid_argument on a size mismatch.
+    // Tensor built from existing numbers; values.size() must equal n*c*h*w.
+    
     static Tensor fromData(std::size_t n, std::size_t c, std::size_t h, std::size_t w, std::vector<double> values) {
         Tensor t(n, c, h, w);
         if (values.size() != t.data.size()) {
@@ -115,18 +46,13 @@ public:
         return t;
     }
 
-    // ------------------------------------------------------------ shape queries
-
-    /// Number of elements.
     std::size_t size() const noexcept { return data.size(); }
 
-    /// Shape accessors (the tensor must be valid, see isValid()).
-    std::size_t batch() const { return shape.at(0); }
+    std::size_t batch()    const { return shape.at(0); }
     std::size_t channels() const { return shape.at(1); }
-    std::size_t height() const { return shape.at(2); }
-    std::size_t width() const { return shape.at(3); }
+    std::size_t height()   const { return shape.at(2); }
+    std::size_t width()    const { return shape.at(3); }
 
-    /// Text such as "{2,3,4,5}", for error messages.
     std::string shapeString() const {
         std::string s = "{";
         for (std::size_t i = 0; i < shape.size(); ++i) {
@@ -138,8 +64,6 @@ public:
 
     bool sameShape(const Tensor& other) const noexcept { return shape == other.shape; }
 
-    /// True when the tensor is consistent: rank 4, no zero dimension, no overflow,
-    /// and data.size() equals the product of the shape.
     bool isValid() const noexcept {
         if (shape.size() != 4) return false;
         std::size_t total = 1;
@@ -151,7 +75,6 @@ public:
         return data.size() == total;
     }
 
-    /// Like isValid() but throws std::invalid_argument("<who>: ...") with the reason.
     void validate(const char* who) const {
         if (shape.size() != 4) {
             throw std::invalid_argument(std::string(who) + ": tensor must be 4-D {N,C,H,W}");
@@ -170,14 +93,11 @@ public:
         }
     }
 
-    // ----------------------------------------------------------------- indexing
 
-    /// Position of element (n, c, h, w) in `data`. Does not check the indices.
     std::size_t index(std::size_t n, std::size_t c, std::size_t h, std::size_t w) const noexcept {
         return ((n * shape[1] + c) * shape[2] + h) * shape[3] + w;
     }
 
-    /// Fast access. Indices are checked with assert() only (see the note at the top).
     double& operator()(std::size_t n, std::size_t c, std::size_t h, std::size_t w) {
         assert(inRange(n, c, h, w));
         return data[index(n, c, h, w)];
@@ -187,8 +107,6 @@ public:
         return data[index(n, c, h, w)];
     }
 
-    /// Always-checked access.
-    /// @throws std::out_of_range if an index is outside the tensor.
     double& at(std::size_t n, std::size_t c, std::size_t h, std::size_t w) {
         requireInRange(n, c, h, w);
         return data[index(n, c, h, w)];
@@ -198,7 +116,6 @@ public:
         return data[index(n, c, h, w)];
     }
 
-    // ---------------------------------------------------------------- statistics
 
     void fill(double value) { std::fill(data.begin(), data.end(), value); }
 
@@ -220,7 +137,6 @@ public:
         return *std::max_element(data.begin(), data.end());
     }
 
-    /// True when no element is NaN or infinity.
     bool allFinite() const noexcept {
         for (double v : data) {
             if (!std::isfinite(v)) return false;
@@ -228,15 +144,11 @@ public:
         return true;
     }
 
-    /// @throws std::invalid_argument("<who>: tensor contains NaN or infinity")
     void requireFinite(const char* who) const {
         if (!allFinite()) throw std::invalid_argument(std::string(who) + ": tensor contains NaN or infinity");
     }
 
-    // --------------------------------------------------------------- arithmetic
 
-    /// Element-wise operations. Both tensors must have the same shape.
-    /// @throws std::invalid_argument on a shape mismatch.
     Tensor& operator+=(const Tensor& rhs) {
         requireSameShape(rhs, "operator+=");
         for (std::size_t i = 0; i < data.size(); ++i) data[i] += rhs.data[i];
@@ -251,22 +163,42 @@ public:
         for (double& v : data) v *= scalar;
         return *this;
     }
-    /// @throws std::invalid_argument on division by zero.
     Tensor& operator/=(double scalar) {
         if (scalar == 0.0) throw std::invalid_argument("Tensor::operator/=: division by zero");
         for (double& v : data) v /= scalar;
         return *this;
     }
 
-    /// Element-wise (Hadamard) product: result[i] = this[i] * other[i].
-    Tensor hadamard(const Tensor& other) const {
-        requireSameShape(other, "hadamard");
+    /// Named versions: each returns a NEW tensor and leaves both operands unchanged.
+    Tensor add(const Tensor& other) const {
+        requireSameShape(other, "add");
+        Tensor out = *this;
+        for (std::size_t i = 0; i < data.size(); ++i) out.data[i] += other.data[i];
+        return out;
+    }
+    Tensor subtract(const Tensor& other) const {
+        requireSameShape(other, "subtract");
+        Tensor out = *this;
+        for (std::size_t i = 0; i < data.size(); ++i) out.data[i] -= other.data[i];
+        return out;
+    }
+    /// Element-wise (Hadamard) product, result[i] = this[i] * other[i]. NOT a matrix product.
+    Tensor multiply(const Tensor& other) const {
+        requireSameShape(other, "multiply");
         Tensor out = *this;
         for (std::size_t i = 0; i < data.size(); ++i) out.data[i] *= other.data[i];
         return out;
     }
+    /// Alias of multiply() for compatibility
+    Tensor hadamard(const Tensor& other) const { return multiply(other); }
 
-    /// New tensor with f applied to every element (for example an activation function).
+    /// Every element multiplied by `factor`; returns a new tensor.
+    Tensor scale(double factor) const {
+        Tensor out = *this;
+        out *= factor;
+        return out;
+    }
+
     template <typename F>
     Tensor mapped(F&& f) const {
         Tensor out = *this;
@@ -274,10 +206,9 @@ public:
         return out;
     }
 
-    // ------------------------------------------------------ reshaping and slicing
+    //reshaping and slicing
 
     /// Same numbers, new shape. The total number of elements must stay the same.
-    /// @throws std::invalid_argument otherwise.
     Tensor reshaped(std::size_t n, std::size_t c, std::size_t h, std::size_t w) const {
         const std::size_t total = checkedSize(n, c, h, w);
         if (total != data.size()) {
@@ -291,18 +222,20 @@ public:
         return out;
     }
 
+    /// In-place reshape convenience: reassigns *this to reshaped(...).
+    Tensor& reshape(std::size_t n, std::size_t c, std::size_t h, std::size_t w) {
+        *this = reshaped(n, c, h, w);
+        return *this;
+    }
+
     /// {N, C, H, W} -> {N, C*H*W, 1, 1}: one row of features per image.
     Tensor flattened() const {
         validate("Tensor::flattened");
         return reshaped(shape[0], data.size() / shape[0], 1, 1);
     }
 
-    /// Copy of image n as a tensor of shape {1, C, H, W}.
-    /// @throws std::out_of_range if n >= N.
     Tensor sample(std::size_t n) const { return batchSlice(n, 1); }
 
-    /// Copy of `count` consecutive images starting at `first`: shape {count, C, H, W}.
-    /// @throws std::invalid_argument if count is 0, std::out_of_range if the range leaves the batch.
     Tensor batchSlice(std::size_t first, std::size_t count) const {
         validate("Tensor::batchSlice");
         if (count == 0) throw std::invalid_argument("Tensor::batchSlice: count must be positive");
@@ -317,14 +250,11 @@ public:
                   data.begin() + static_cast<std::ptrdiff_t>((first + count) * per_image), out.data.begin());
         return out;
     }
+//comparison
 
-    // --------------------------------------------------------------- comparison
-
-    /// Exact comparison of shape and values (NaN is never equal to anything).
     bool operator==(const Tensor& other) const { return shape == other.shape && data == other.data; }
     bool operator!=(const Tensor& other) const { return !(*this == other); }
 
-    /// Same shape and every pair of values differs by at most `eps` (false if any value is NaN).
     bool approxEqual(const Tensor& other, double eps = 1e-9) const {
         if (shape != other.shape || data.size() != other.data.size()) return false;
         for (std::size_t i = 0; i < data.size(); ++i) {
@@ -334,7 +264,6 @@ public:
     }
 
 private:
-    /// n*c*h*w with all the checks of the constructor.
     static std::size_t checkedSize(std::size_t n, std::size_t c, std::size_t h, std::size_t w) {
         if (n == 0 || c == 0 || h == 0 || w == 0) {
             throw std::invalid_argument("Tensor: every dimension must be positive, got {" + std::to_string(n) + "," +
