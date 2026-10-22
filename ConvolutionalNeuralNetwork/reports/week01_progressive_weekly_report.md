@@ -3,17 +3,15 @@
                 WEEK 01
 
 Group Members and Work Done
-
-|   | Group Member                      |  Work Done                                            |
-
-| 1 | Tindyebwa Frank (Leader)          | Image file loading engine                             |
-| 2 | Kweyamba Peter (Risk Manager)     | Image preprocessing                                   |
-| 3 | Atugonza Jeremy                   | Image representation data structure                   |
-| 4 | Namukasa Agatha                   | Tensor class implementation                           |
-| 5 | Mugarura Allan                    | Kernel and filter initialization                      |
-| 6 | Mugenyi Edrine                    | Convolution pipeline integration & Week-1 demo        |
-| 7 | Wanyenze Joan Natseba             | Average pooling layer implementation                  |
-
+| # | Group Member | Work Done |
+|---|--------------|-----------|
+| 1 | Tindyebwa Frank (Leader) | Image file loading engine |
+| 2 | Kweyamba Peter (Risk Manager) | Image preprocessing |
+| 3 | Atugonza Jeremy | Image representation data structure |
+| 4 | Namukasa Agatha | Tensor class implementation |
+| 5 | Mugarura Allan | Kernel and filter initialization |
+| 6 | Mugenyi Edrine | Convolution pipeline integration & Week-1 demo |
+| 7 | Wanyenze Joan Natseba | Average pooling layer implementation |
 Progress
 
 The group established the initial interfaces and data structures required for the CNN implementation. Image loading and image representation were successfully implemented and tested. Work was also started on preprocessing, tensors, kernels, filters, average pooling and some convolution operations.

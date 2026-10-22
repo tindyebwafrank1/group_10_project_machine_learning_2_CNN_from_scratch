@@ -5,17 +5,16 @@
 
 Group Members and Work Done
 
-|   | Group Member                  | Work Done |
-
-| 1 | Tindyebwa Frank (Leader)      | Zero padding implementation (Valid/Same modes) |
-| 2 | Kweyamba Peter (Risk Manager) | Stride implementation and sub-sampling loop    |
-| 3 | Atugonza Jeremy               | ReLU activation function module                |
-| 4 | Namukasa Agatha               | Sigmoid and Tanh activation modules            |
-| 5 | Mugarura Allan                | Max pooling layer implementation               |
-| 6 | Mugenyi Edrine                | CNN feature integration and Week-2 demo        |
-| 7 | Wanyenze Joan Natseba         | Average pooling layer implementation           |
-| 8 | Evarista                      | CNN feature-extraction block builder           |
-
+| # | Group Member | Work Done |
+|---|--------------|-----------|
+| 1 | Tindyebwa Frank (Leader) | Zero padding implementation (Valid/Same modes) |
+| 2 | Kweyamba Peter (Risk Manager) | Stride implementation and sub-sampling loop |
+| 3 | Atugonza Jeremy | ReLU activation function module |
+| 4 | Namukasa Agatha | Sigmoid and Tanh activation modules |
+| 5 | Mugarura Allan | Max pooling layer implementation |
+| 6 | Mugenyi Edrine | CNN feature integration and Week-2 demo |
+| 7 | Wanyenze Joan Natseba | Average pooling layer implementation |
+| 8 | Evarista | CNN feature-extraction block builder |
 Progress
 
 During Week 2, the group focused on extending the CNN implementation through spatial transformations, activation functions, and pooling operations. The work covered zero padding, stride and sub-sampling, ReLU, Sigmoid and Tanh activation functions, max pooling, average pooling, and integration of convolution, activation and pooling blocks.
