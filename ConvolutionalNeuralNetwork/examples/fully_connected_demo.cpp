@@ -1,6 +1,7 @@
 #ifndef FULLY_CONNECTED_HPP
 #define FULLY_CONNECTED_HPP
 
+
 #include <vector>
 #include <cmath>
 #include <stdexcept>

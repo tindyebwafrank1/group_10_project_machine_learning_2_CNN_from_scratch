@@ -4,7 +4,7 @@
 #include <stdexcept>
 #include <vector>
 
-#include "strides.hpp"
+#include "../include/strides.hpp"
 
 using namespace std;
 using namespace cnn;
