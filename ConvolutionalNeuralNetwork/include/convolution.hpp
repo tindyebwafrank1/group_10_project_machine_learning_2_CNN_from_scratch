@@ -1,8 +1,8 @@
-#ifndef CNN_CONVOLUTION_HPP
-#define CNN_CONVOLUTION_HPP
+#ifndef CONVOLUTION_HPP
+#define CONVOLUTION_HPP
 
 #include <cstddef>
-#include "cnn/tensor.hpp"
+#include "tensor.hpp"
 
 namespace cnn {
 
@@ -23,4 +23,4 @@ Tensor conv2d_single(const Tensor& input, const Tensor& kernel);
 
 }  // namespace cnn
 
-#endif  // CNN_CONVOLUTION_HPP
+#endif  //CONVOLUTION_HPP
