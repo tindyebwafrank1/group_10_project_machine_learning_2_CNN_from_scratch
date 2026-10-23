@@ -1,13 +1,14 @@
 #ifndef ACTIVATIONS_HPP
-#define ACTIATIONS_HPP
-// Both layers are applied element-wise: every value in the tensor
+#define ACTIVATIONS_HPP
+// All layers are applied element-wise: every value in the tensor
 // is passed through the activation function independently, so the
 // output has exactly the same shape as the input.
 
-
 #include <cmath> // std::exp, std::tanh
+#include <algorithm> // std::max
+#include <stdexcept> // std::invalid_argument
 #include <cstddef> // size_t
-#include "tensor.hpp" // Week 1 Tensor: public data (flat vector) and shape {N,C,H,W}
+#include "tensor.hpp" // Tensor: public data (flat vector) and shape {N,C,H,W}
 
 namespace act {
 
@@ -32,6 +33,36 @@ inline double tanh_stable(double x) {
     return std::tanh(x);
 }
 
+// ReLU layer: ReLU(x) = max(0, x), negative values become 0.
+class ReLU {
+public:
+    // Forward pass: returns a new tensor, the input is not modified.
+    Tensor forward(const Tensor& input) const {
+        Tensor out = input; // copy shape and data
+        for (double& v : out.data) {
+            v = std::max(0.0, v); // apply to each element
+        }
+        return out;
+    }
+
+    // Backward pass (needed in Week 4).
+    // Derivative: ReLU'(x) = 1 if x > 0, otherwise 0 (we use 0 at x = 0).
+    // y > 0 exactly when x > 0, so the saved output y can be used,
+    // the same way as Sigmoid and Tanh.
+    Tensor backward(const Tensor& output, const Tensor& grad_out) const {
+        if (output.data.size() != grad_out.data.size()) {
+            throw std::invalid_argument("ReLU::backward: size mismatch");
+        }
+        Tensor g = grad_out;
+        for (size_t i = 0; i < g.data.size(); ++i) {
+            if (output.data[i] <= 0.0) {
+                g.data[i] = 0.0; // dL/dx = 0 where ReLU was inactive
+            } // else dL/dx = dL/dy * 1
+        }
+        return g;
+    }
+};
+
 // Sigmoid layer: squashes every value into the range (0, 1).
 class Sigmoid {
 public:
@@ -49,6 +80,9 @@ public:
     // 'output' is the saved forward result y, 'grad_out' is dL/dy
     // coming from the next layer. Returns dL/dx by the chain rule.
     Tensor backward(const Tensor& output, const Tensor& grad_out) const {
+        if (output.data.size() != grad_out.data.size()) {
+            throw std::invalid_argument("Sigmoid::backward: size mismatch");
+        }
         Tensor g = grad_out;
         for (size_t i = 0; i < g.data.size(); ++i) {
             const double y = output.data[i];
@@ -73,6 +107,9 @@ public:
     // Backward pass (needed in Week 4).
     // Derivative: tanh'(x) = 1 - y^2, where y = tanh(x).
     Tensor backward(const Tensor& output, const Tensor& grad_out) const {
+        if (output.data.size() != grad_out.data.size()) {
+            throw std::invalid_argument("Tanh::backward: size mismatch");
+        }
         Tensor g = grad_out;
         for (size_t i = 0; i < g.data.size(); ++i) {
             const double y = output.data[i];
