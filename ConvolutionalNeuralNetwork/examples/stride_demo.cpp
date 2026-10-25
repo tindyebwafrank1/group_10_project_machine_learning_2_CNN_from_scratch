@@ -1,11 +1,7 @@
 #include <iostream>
 #include <vector>
 
-<<<<<<< HEAD
-#include "../include/strides.hpp"
-=======
 #include "strides.hpp"
->>>>>>> 09f5403 (Add the stride part)
 
 using namespace std;
 using namespace cnn;
