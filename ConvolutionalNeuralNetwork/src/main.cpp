@@ -47,20 +47,12 @@ public:
         return data[get_index(n, c, h, w)];
     }
 
-<<<<<<< HEAD
-    // THIS PART HANDLES: The const read-only matrix accessor built by Agatha (M4)
-=======
     // THIS PART HANDLES: The const read-only matrix accessor 
->>>>>>> 3f9e839c6ae566188160476a8bd7f4bec34b879f
     const double& operator()(size_t n, size_t c, size_t h, size_t w) const {
         return data[get_index(n, c, h, w)];
     }
 };
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 3f9e839c6ae566188160476a8bd7f4bec34b879f
 // MODULE 8: SYSTEM INTEGRATION & DEMO PIPELINE MANAGER
 
 class PipelineIntegrationManager {
@@ -71,11 +63,7 @@ public:
     typedef Tensor (*WeightsInitializerEngine)(size_t, size_t, size_t, size_t);
     typedef Tensor (*ConvolutionMathEngine)(const Tensor&, const Tensor&);
 
-<<<<<<< HEAD
-    // THIS PART HANDLES: The automated unit testing built  to pass sprint criteria
-=======
     // THIS PART HANDLES: The automated unit testing 
->>>>>>> 3f9e839c6ae566188160476a8bd7f4bec34b879f
     static bool run_system_validation_tests(ConvolutionMathEngine architecture_conv) {
         cout << "[M8 Integration] Launching automated framework diagnostic checks...\n";
         
@@ -120,15 +108,9 @@ public:
         WeightsInitializerEngine weight_init_stage,
         ConvolutionMathEngine conv_processing_stage
     ) {
-<<<<<<< HEAD
-        cout << "=========================================================\n";
-        cout << "  LAUNCHING INTEGRATED CNN DATA PROCESSING ENVIRONMENT     \n";
-        cout << "=========================================================\n";
-=======
         
         cout << "  LAUNCHING INTEGRATED CNN DATA PROCESSING ENVIRONMENT     \n";
         
->>>>>>> 3f9e839c6ae566188160476a8bd7f4bec34b879f
 
         try {
             // THIS PART EXECUTES: binary image parsing file engine
@@ -141,20 +123,6 @@ public:
             
             assert(processing_tensor.data.size() > 0 && "Pipeline fault: Target image memory block unallocated.");
 
-<<<<<<< HEAD
-            // THIS PART EXECUTES:  filter matrix shape and weight initializer engine
-            cout << "[Stage 3] Spawning target model filter weights...\n";
-            Tensor kernel_filters = weight_init_stage(4, 3, 3, 3);
-
-            // THIS PART EXECUTES:  multi-channel convolution arithmetic engine
-            cout << "[Stage 4] Compiling matrix transformations across layers...\n";
-            Tensor feature_maps = conv_processing_stage(processing_tensor, kernel_filters);
-
-            // THIS PART EXECUTES:  Week-1 output diagnostic status report logging
-            cout << "\n=========================================================\n";
-            cout << "               WEEK 1 SYSTEM METRICS SUMMARY             \n";
-            cout << "=========================================================\n";
-=======
             // THIS PART EXECUTES: filter matrix shape and weight initializer engine
             cout << "[Stage 3] Spawning target model filter weights...\n";
             Tensor kernel_filters = weight_init_stage(4, 3, 3, 3);
@@ -164,7 +132,6 @@ public:
             Tensor feature_maps = conv_processing_stage(processing_tensor, kernel_filters);
 
             // THIS PART EXECUTES:  output diagnostic status report logging
->>>>>>> 3f9e839c6ae566188160476a8bd7f4bec34b879f
             cout << "Input Tensor Layout   : {" << processing_tensor.shape[0] << ", " << processing_tensor.shape[1] 
                  << ", " << processing_tensor.shape[2] << ", " << processing_tensor.shape[3] << "}\n";
             cout << "Kernel Tensor Layout  : {" << kernel_filters.shape[0] << ", " << kernel_filters.shape[1] 
