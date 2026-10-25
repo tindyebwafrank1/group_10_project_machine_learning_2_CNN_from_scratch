@@ -1,22 +1,19 @@
-#ifndef PREDICTION_HPP
-#define PREDICTION_HPP
+
+#ifndef CNN_PREDICTION_HPP
+#define CNN_PREDICTION_HPP
 
 #include <cstddef>
 #include <vector>
-#include "tensor.hpp"
 
 namespace cnn {
 
-// Index of the largest value in scores. Ties go to the lowest index.
-// Throws std::invalid_argument if scores is empty or contains NaN.
+// Return the index of the class with the highest score.
+// If multiple classes share the highest score, return the first index.
 std::size_t argmax(const std::vector<double>& scores);
 
-// Predicted class for every sample in a batch. Each sample's scores are the
-// consecutive size/N values of the tensor (e.g. softmax output of shape
-// (N, K, 1, 1)). Returns N class indices.
-// Throws std::invalid_argument if the tensor is empty or N == 0.
-std::vector<std::size_t> predict(const Tensor& scores);
+// Predict the class from a vector of output scores.
+std::size_t predict(const std::vector<double>& scores);
 
-}  // namespace cnn
+} // namespace cnn
 
-#endif  //PREDICTION_HPP
+#endif // CNN_PREDICTION_HPP

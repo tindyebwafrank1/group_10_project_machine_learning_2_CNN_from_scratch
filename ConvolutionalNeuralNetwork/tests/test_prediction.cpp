@@ -1,50 +1,110 @@
-#include "prediction.hpp"
-#include <cmath>
+
 #include <iostream>
+#include <vector>
 #include <stdexcept>
+#include <limits>
 
-static int failures = 0;
-#define CHECK(cond) do { if (!(cond)) { \
-    std::cerr << "FAILED: " #cond " (line " << __LINE__ << ")\n"; ++failures; } } while (0)
+#include "prediction.hpp"
 
-#define CHECK_THROWS(expr) do { bool t = false; \
-    try { expr; } catch (const std::invalid_argument&) { t = true; } CHECK(t); } while (0)
+using namespace std;
 
-void test_argmax_basic() {
-    CHECK(cnn::argmax({0.1, 0.7, 0.2}) == 1);
-    CHECK(cnn::argmax({5.0}) == 0);                 // single element
-    CHECK(cnn::argmax({-3.0, -1.0, -2.0}) == 1);    // all negative
-}
+int main()
+{
+    try {
+        // Test 1: Identify the class with the highest score.
+        vector<double> scores1 = {0.15, 0.70, 0.15};
 
-void test_argmax_ties() {
-    CHECK(cnn::argmax({0.4, 0.4, 0.2}) == 0);       // first index wins
-}
+        if (cnn::argmax(scores1) != 1) {
+            throw runtime_error("Test 1 failed");
+        }
 
-void test_argmax_invalid() {
-    CHECK_THROWS(cnn::argmax({}));
-    CHECK_THROWS(cnn::argmax({0.5, std::nan(""), 0.1}));
-}
+        cout << "Test 1 passed: highest score selected\n";
 
-void test_predict_batch() {
-    cnn::Tensor s(2, 3, 1, 1);                      // 2 samples, 3 classes
-    s.data = {0.2, 0.5, 0.3,                        // sample 0 -> class 1
-              0.9, 0.05, 0.05};                     // sample 1 -> class 0
-    auto labels = cnn::predict(s);
-    CHECK(labels.size() == 2);
-    CHECK(labels[0] == 1 && labels[1] == 0);
-}
 
-void test_predict_invalid() {
-    cnn::Tensor empty(0, 3, 1, 1);
-    CHECK_THROWS(cnn::predict(empty));
-}
+        // Test 2: The highest score is at the first index.
+        vector<double> scores2 = {0.90, 0.05, 0.05};
 
-int main() {
-    test_argmax_basic();
-    test_argmax_ties();
-    test_argmax_invalid();
-    test_predict_batch();
-    test_predict_invalid();
-    if (failures == 0) std::cout << "All prediction tests passed\n";
-    return failures == 0 ? 0 : 1;
+        if (cnn::argmax(scores2) != 0) {
+            throw runtime_error("Test 2 failed");
+        }
+
+        cout << "Test 2 passed: first class selected\n";
+
+
+        // Test 3: The highest score is at the last index.
+        vector<double> scores3 = {0.10, 0.20, 0.80};
+
+        if (cnn::predict(scores3) != 2) {
+            throw runtime_error("Test 3 failed");
+        }
+
+        cout << "Test 3 passed: last class selected\n";
+
+
+        // Test 4: Equal scores select the first maximum.
+        vector<double> scores4 = {0.60, 0.60, 0.20};
+
+        if (cnn::argmax(scores4) != 0) {
+            throw runtime_error("Test 4 failed");
+        }
+
+        cout << "Test 4 passed: ties handled correctly\n";
+
+
+        // Test 5: A single class must return index zero.
+        vector<double> scores5 = {0.75};
+
+        if (cnn::predict(scores5) != 0) {
+            throw runtime_error("Test 5 failed");
+        }
+
+        cout << "Test 5 passed: single class handled\n";
+
+
+        // Test 6: An empty vector must be rejected.
+        bool exception_thrown = false;
+
+        try {
+            vector<double> empty_scores;
+            cnn::argmax(empty_scores);
+        }
+        catch (const invalid_argument&) {
+            exception_thrown = true;
+        }
+
+        if (!exception_thrown) {
+            throw runtime_error("Test 6 failed");
+        }
+
+        cout << "Test 6 passed: empty input rejected\n";
+
+
+        // Test 7: Non-finite scores must be rejected.
+        exception_thrown = false;
+
+        try {
+            vector<double> invalid_scores = {
+                0.2, numeric_limits<double>::quiet_NaN()
+            };
+
+            cnn::argmax(invalid_scores);
+        }
+        catch (const invalid_argument&) {
+            exception_thrown = true;
+        }
+
+        if (!exception_thrown) {
+            throw runtime_error("Test 7 failed");
+        }
+
+        cout << "Test 7 passed: invalid score rejected\n";
+
+        cout << "\nAll 7 prediction tests passed.\n";
+    }
+    catch (const exception& e) {
+        cerr << e.what() << '\n';
+        return 1;
+    }
+
+    return 0;
 }

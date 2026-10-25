@@ -1,40 +1,47 @@
+
 #include "prediction.hpp"
+
 #include <cmath>
 #include <stdexcept>
 
+using namespace std;
+
 namespace cnn {
 
-std::size_t argmax(const std::vector<double>& scores) {
-    if (scores.empty())
-        throw std::invalid_argument("argmax: scores is empty");
-
-    std::size_t best = 0;
-    for (std::size_t i = 0; i < scores.size(); ++i) {
-        if (std::isnan(scores[i]))
-            throw std::invalid_argument("argmax: scores contains NaN");
-        if (scores[i] > scores[best])   // strict '>' keeps the first index on ties
-            best = i;
+size_t argmax(const vector<double>& scores)
+{
+    // A prediction requires at least one class score.
+    if (scores.empty()) {
+        throw invalid_argument(
+            "argmax: scores vector must not be empty"
+        );
     }
-    return best;
+
+    // Reject invalid numerical values.
+    for (double score : scores) {
+        if (!isfinite(score)) {
+            throw invalid_argument(
+                "argmax: scores must all be finite"
+            );
+        }
+    }
+
+    // Start with the first class as the best prediction.
+    size_t best_index = 0;
+
+    // Search for a score greater than the current maximum.
+    for (size_t i = 1; i < scores.size(); ++i) {
+        if (scores[i] > scores[best_index]) {
+            best_index = i;
+        }
+    }
+
+    return best_index;
 }
 
-std::vector<std::size_t> predict(const Tensor& scores) {
-    if (scores.shape.size() != 4 || scores.shape[0] == 0 || scores.data.empty())
-        throw std::invalid_argument("predict: expected a non-empty (N,...) tensor");
-
-    const std::size_t n = scores.shape[0];
-    const std::size_t k = scores.data.size() / n;   // scores per sample
-    if (k == 0 || k * n != scores.data.size())
-        throw std::invalid_argument("predict: data size not divisible by N");
-
-    std::vector<std::size_t> labels;
-    labels.reserve(n);
-    for (std::size_t i = 0; i < n; ++i) {
-        std::vector<double> row(scores.data.begin() + i * k,
-                                scores.data.begin() + (i + 1) * k);
-        labels.push_back(argmax(row));
-    }
-    return labels;
+size_t predict(const vector<double>& scores)
+{
+    return argmax(scores);
 }
 
-}  // namespace cnn
+} // namespace cnn
