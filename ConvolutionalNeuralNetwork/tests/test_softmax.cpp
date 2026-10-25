@@ -1,4 +1,4 @@
-
+#include "tensor.hpp"
 #include <cassert>
 #include <cmath>
 #include <iostream>
@@ -168,30 +168,46 @@ int main()
 
     assert(thrown);
 
-    // Test 11: Integration with FullyConnected
-    // Input = [1, 2]
-    // Weights produce scores [1, 2, 3]
-    cnn::FullyConnected fc(2, 3);
+    // Test 11: Integration with FullyConnectedLayer
+// Input = [1, 2]
+// Expected scores = [1, 2, 3]
 
-    fc.setWeights({1, 0, 0, 1, 1, 1});
+// Create a fully connected layer with 2 inputs and 3 outputs.
+cnn::FullyConnectedLayer fc(
+    {
+        {1.0, 0.0},
+        {0.0, 1.0},
+        {1.0, 1.0}
+    },
+    {0.0, 0.0, 0.0}
+);
 
-    Tensor input(1, 2, 1, 1);
-    input.data = {1.0, 2.0};
+// Prepare the input vector.
+vector<double> input_values = {1.0, 2.0};
 
-    Tensor scores = fc.forward(input);
-    Tensor probabilities = sm.forward(scores);
+// Calculate the fully connected layer's output.
+vector<double> scores_values = fc.forward(input_values);
 
-    double sum = probabilities.data[0]
-               + probabilities.data[1]
-               + probabilities.data[2];
+// Store the scores in the project's 4D Tensor.
+Tensor scores(1, 3, 1, 1);
+scores.data = scores_values;
 
-    assert(close(sum, 1.0, 1e-12));
+// Apply Softmax.
+Tensor probabilities = sm.forward(scores);
 
-    assert(probabilities.data[2] > probabilities.data[1]);
-    assert(probabilities.data[1] > probabilities.data[0]);
+// Check that the probabilities sum to 1.
+double sum = probabilities.data[0]
+           + probabilities.data[1]
+           + probabilities.data[2];
 
-    // All tests passed
-    cout << "All softmax tests passed" << endl;
+assert(close(sum, 1.0, 1e-12));
 
-    return 0;
+// Scores are ordered 1 < 2 < 3,
+// so their Softmax probabilities must have the same order.
+assert(probabilities.data[2] > probabilities.data[1]);
+assert(probabilities.data[1] > probabilities.data[0]);
+
+cout << "All softmax tests passed" << endl;
+
+return 0;
 }
