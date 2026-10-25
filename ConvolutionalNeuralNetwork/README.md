@@ -248,10 +248,13 @@ Do not assume support for model training, automatic differentiation, GPU
 acceleration, pretrained networks, or production deployment unless those
 capabilities are explicitly implemented and documented.
 
+
 ## License
 
-No license has been specified in the project materials. Until a license
-is added, reuse and redistribution permissions should not be assumed.
+This project is licensed under the MIT License. See the [`LICENSE`](LICENSE) file for the full license text.
+
+Copyright (c) 2026  Group 10
+
 
 ## Acknowledgements
 
