@@ -1,17 +1,13 @@
 #include <iostream>
 #include <vector>
 
-#include "cnn/preprocess.hpp"
+#include "preprocess.hpp"
 
 using namespace std;
 using namespace cnn;
 
 int main() {
     try {
-        // 4x4 RGB gradient as interleaved bytes, the same layout a file loader produces.
-        // With Frank's loader, replace this block with:
-        //   Tensor raw = fromInterleaved(img.pixels.data(), img.pixels.size(),
-        //                                img.height, img.width, img.channels);
         vector<unsigned char> px(4 * 4 * 3);
         for (size_t y = 0; y < 4; ++y) {
             for (size_t x = 0; x < 4; ++x) {
