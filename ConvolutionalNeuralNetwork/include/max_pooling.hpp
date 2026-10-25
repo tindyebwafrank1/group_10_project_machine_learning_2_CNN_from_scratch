@@ -1,23 +1,38 @@
-#ifndef MAX_POOLING_HPP
-#define MAX_POOLING_HPP
 
-#include "tensor.hpp" 
-#include <vector>
+#ifndef CNN_MAX_POOLING_HPP
+#define CNN_MAX_POOLING_HPP
+
+#include "tensor.hpp"
+
 #include <cstddef>
+#include <vector>
 
-class MaxPooling {
-public:
-    size_t pool_height; // Vertical dimension of the pooling window
-    size_t pool_width;  // Horizontal dimension of the pooling window
-    size_t stride;      // Step traversal rate
+using namespace std;
 
-    std::vector<size_t> max_indices;
+// Defines the pooling window and movement between windows.
+struct PoolingParams
+{
+    size_t window_h = 2;
+    size_t window_w = 2;
 
-    
-    MaxPooling(size_t p_height, size_t p_width, size_t s_stride);
-
-    
-    Tensor forward(const Tensor& input);
+    size_t stride_h = 2;
+    size_t stride_w = 2;
 };
 
-#endif // MAX_POOLING_HPP
+// Stores the pooled output and the input positions of its maxima.
+struct MaxPoolingResult
+{
+    Tensor output;
+
+    // Each entry is the flat index into the original input Tensor::data.
+    // Entries correspond to output.data in the same order.
+    vector<size_t> max_indices;
+};
+
+// Applies 2D max pooling to a 4D NCHW input tensor.
+MaxPoolingResult maxPool2D(
+    const Tensor& input,
+    const PoolingParams& params = PoolingParams{}
+);
+
+#endif
