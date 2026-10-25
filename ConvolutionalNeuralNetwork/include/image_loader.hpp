@@ -1,7 +1,7 @@
-#ifndef IMAGE_LOADER_H
-#define IMAGE_LOADER_H
+#ifndef IMAGE_LOADER_HPP
+#define IMAGE_LOADER_HPP
 
-#include "image.h"
+#include "image.hpp"
 #include <string>
 
 using namespace std;
