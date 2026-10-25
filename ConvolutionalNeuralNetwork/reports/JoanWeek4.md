@@ -1,11 +1,11 @@
 # Week 4 Progress Rep
 
 ## Completed
-- Implemented `conv2d_backward` in `src/conv_backward.cpp` with the interface
-  in `include/conv_backward.hpp`. It supports batches, multiple channels
+- Implemented `convolution_backward` in `src/convolution_backward.cpp` with the interface
+  in `include/convolution_backward.hpp`. It supports batches, multiple channels
   and filters, stride and zero padding.
 - Added `conv_out_size` for the output size with padding and stride.
-- Wrote `tests/test_conv_backward.cpp`: a hand-computed case, finite-difference
+- Wrote `tests/test_convolution_backward.cpp`: a hand-computed case, finite-difference
   gradient checks on four configurations, and invalid-input tests.
 
 ## Backward Pass Mathematics
