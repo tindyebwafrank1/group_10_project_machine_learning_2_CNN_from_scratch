@@ -6,9 +6,15 @@
 
 using namespace std;
 
+<<<<<<< HEAD
+// ============================================================================
+// CORE TENSOR TOPOLOGY ARCHITECTURE
+// ============================================================================
+=======
 
 // CORE TENSOR TOPOLOGY ARCHITECTURE
 
+>>>>>>> 3f9e839c6ae566188160476a8bd7f4bec34b879f
 class Tensor {
 public:
     vector<double> data;  
@@ -19,7 +25,11 @@ public:
         data.resize(n * c * h * w, 0.0);
     }
 
+<<<<<<< HEAD
+    // THIS PART HANDLES: The contiguous 1D flattening math designed by Jeremy (M3)
+=======
     // THIS PART HANDLES: The contiguous 1D flattening math designed 
+>>>>>>> 3f9e839c6ae566188160476a8bd7f4bec34b879f
     // Formula: Index(n,c,h,w) = n*(C*H*W) + c*(H*W) + h*W + w
     inline size_t get_index(size_t n, size_t c, size_t h, size_t w) const {
         if (n >= shape[0] || c >= shape[1] || h >= shape[2] || w >= shape[3]) {
@@ -28,7 +38,11 @@ public:
         return n * (shape[1] * shape[2] * shape[3]) + c * (shape[2] * shape[3]) + h * shape[3] + w;
     }
 
+<<<<<<< HEAD
+    // THIS PART HANDLES: The 4D coordinate vector element accessor built by Agatha (M4)
+=======
     // THIS PART HANDLES: The 4D coordinate vector element accessor 
+>>>>>>> 3f9e839c6ae566188160476a8bd7f4bec34b879f
     double& operator()(size_t n, size_t c, size_t h, size_t w) {
         return data[get_index(n, c, h, w)];
     }
@@ -38,7 +52,6 @@ public:
         return data[get_index(n, c, h, w)];
     }
 };
-
 
 // MODULE 8: SYSTEM INTEGRATION & DEMO PIPELINE MANAGER
 

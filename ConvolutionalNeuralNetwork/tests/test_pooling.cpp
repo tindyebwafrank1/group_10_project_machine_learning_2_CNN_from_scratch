@@ -1,4 +1,4 @@
-#include "cnn/pooling.hpp"
+#include "pooling.hpp"
 #include <iostream>
 
 static int failures = 0;

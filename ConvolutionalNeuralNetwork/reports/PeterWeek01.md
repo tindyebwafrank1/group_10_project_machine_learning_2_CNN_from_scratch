@@ -1,4 +1,4 @@
-# Image Preprocessing (preprocess.hpp), Week 1
+Image Preprocessing (preprocess.hpp), Week 1
 
 All functions take and return `Tensor` with shape {N,C,H,W}, double precision, contiguous.
 Index(n,c,h,w) = n*(C*H*W) + c*(H*W) + h*W + w. Errors throw std::invalid_argument.
