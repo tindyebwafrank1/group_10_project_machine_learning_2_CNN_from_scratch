@@ -1,4 +1,4 @@
-#include <filter_initialization.h>
+#include <filter_initialization.hpp>
 #include <random>
 #include <tensor.hpp>
 
