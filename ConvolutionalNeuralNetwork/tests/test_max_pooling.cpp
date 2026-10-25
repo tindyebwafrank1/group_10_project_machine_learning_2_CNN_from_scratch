@@ -1,71 +1,134 @@
-#include <cassert>
-#include <cmath>
-#include <iostream>
 
-#include "tensor.hpp"
 #include "max_pooling.hpp"
+
+#include <iostream>
+#include <stdexcept>
+
+using namespace std;
+
+int failures = 0;
+
+#define CHECK(condition)                                      \
+    do                                                        \
+    {                                                         \
+        if (!(condition))                                     \
+        {                                                     \
+            cerr << "FAILED: " #condition                    \
+                 << " at line " << __LINE__ << '\n';          \
+            failures++;                                       \
+        }                                                     \
+    } while (false)
+
+#define CHECK_THROWS(statement)                               \
+    do                                                        \
+    {                                                         \
+        bool threw = false;                                  \
+        try                                                   \
+        {                                                     \
+            statement;                                        \
+        }                                                     \
+        catch (const invalid_argument&)                       \
+        {                                                     \
+            threw = true;                                     \
+        }                                                     \
+        CHECK(threw);                                         \
+    } while (false)
 
 int main()
 {
-    std::cout << "[RUNNING] Max Pooling tests..." << std::endl;
-
-    // Create a tensor with shape (N, C, H, W) = (1, 1, 4, 4).
+    // Test 1: Standard 2x2 max pooling with stride 2.
     Tensor input(1, 1, 4, 4);
 
-    // Fill the input tensor with test values.
-    double values[4][4] = {
-        {1.0, 2.0, 4.0, 12.0},
-        {3.0, 9.0, 5.0, 6.0},
-        {7.5, 1.0, 2.0, 3.0},
-        {4.0, 5.0, 6.0, 15.0}
+    double values[16] =
+    {
+         1,  2,  5,  4,
+         3,  6,  7,  8,
+         9, 10, 11, 12,
+        13, 14, 15, 16
     };
 
-    for (std::size_t h = 0; h < 4; ++h) {
-        for (std::size_t w = 0; w < 4; ++w) {
-            input(0, 0, h, w) = values[h][w];
-        }
+    for (size_t i = 0; i < 16; i++)
+    {
+        input.data[i] = values[i];
     }
 
-    // Use a 2x2 pooling window with stride 2.
-    MaxPooling pooling(2, 2, 2);
+    MaxPoolingResult result = maxPool2D(input);
 
-    // Perform max pooling.
-    Tensor output = pooling.forward(input);
+    CHECK(result.output.shape[0] == 1);
+    CHECK(result.output.shape[1] == 1);
+    CHECK(result.output.shape[2] == 2);
+    CHECK(result.output.shape[3] == 2);
 
-    // Check the output dimensions.
-    assert(output.shape.size() == 4);
-    assert(output.shape[0] == 1);
-    assert(output.shape[1] == 1);
-    assert(output.shape[2] == 2);
-    assert(output.shape[3] == 2);
+    CHECK(result.output(0, 0, 0, 0) == 6);
+    CHECK(result.output(0, 0, 0, 1) == 8);
+    CHECK(result.output(0, 0, 1, 0) == 14);
+    CHECK(result.output(0, 0, 1, 1) == 16);
 
-    // Expected output:
-    // [9.0, 12.0]
-    // [7.5, 15.0]
+    // Maxima are at flat input indices 5, 7, 13 and 15.
+    CHECK(result.max_indices.size() == 4);
+    CHECK(result.max_indices[0] == 5);
+    CHECK(result.max_indices[1] == 7);
+    CHECK(result.max_indices[2] == 13);
+    CHECK(result.max_indices[3] == 15);
 
-    assert(std::abs(output(0, 0, 0, 0) - 9.0) < 1e-9);
-    assert(std::abs(output(0, 0, 0, 1) - 12.0) < 1e-9);
-    assert(std::abs(output(0, 0, 1, 0) - 7.5) < 1e-9);
-    assert(std::abs(output(0, 0, 1, 1) - 15.0) < 1e-9);
+    // Test 2: A custom window and stride.
+    PoolingParams params;
+    params.window_h = 2;
+    params.window_w = 2;
+    params.stride_h = 1;
+    params.stride_w = 1;
 
-    // Check the flattened indices of the maximum values.
-    // These assume indices refer to positions in the 4x4 spatial input.
-    assert(pooling.max_indices.size() == 4);
+    MaxPoolingResult overlapping = maxPool2D(input, params);
 
-    assert(pooling.max_indices[0] == 5);
-    assert(pooling.max_indices[1] == 3);
-    assert(pooling.max_indices[2] == 8);
-    assert(pooling.max_indices[3] == 15);
+    CHECK(overlapping.output.shape[2] == 3);
+    CHECK(overlapping.output.shape[3] == 3);
+    CHECK(overlapping.output(0, 0, 0, 0) == 6);
+    CHECK(overlapping.output(0, 0, 1, 1) == 11);
 
-    // Confirm the input tensor remains unchanged.
-    assert(std::abs(input(0, 0, 0, 1) - 2.0) < 1e-9);
-    assert(std::abs(input(0, 0, 1, 1) - 9.0) < 1e-9);
+    // Test 3: Multiple channels remain independent.
+    Tensor multi_channel(1, 2, 2, 2);
 
-    std::cout << "[PASS] Output dimensions are correct." << std::endl;
-    std::cout << "[PASS] Maximum values are correct." << std::endl;
-    std::cout << "[PASS] Maximum indices are correct." << std::endl;
-    std::cout << "[PASS] Input tensor remains unchanged." << std::endl;
-    std::cout << "[PASS] All Max Pooling tests passed!" << std::endl;
+    multi_channel(0, 0, 0, 0) = 1;
+    multi_channel(0, 0, 0, 1) = 2;
+    multi_channel(0, 0, 1, 0) = 3;
+    multi_channel(0, 0, 1, 1) = 4;
 
-    return 0;
+    multi_channel(0, 1, 0, 0) = 10;
+    multi_channel(0, 1, 0, 1) = 20;
+    multi_channel(0, 1, 1, 0) = 30;
+    multi_channel(0, 1, 1, 1) = 40;
+
+    MaxPoolingResult multi_result = maxPool2D(multi_channel);
+
+    CHECK(multi_result.output(0, 0, 0, 0) == 4);
+    CHECK(multi_result.output(0, 1, 0, 0) == 40);
+    CHECK(multi_result.max_indices[0] == 3);
+    CHECK(multi_result.max_indices[1] == 7);
+
+    // Test 4: Invalid stride must be rejected.
+    PoolingParams bad_stride;
+    bad_stride.stride_h = 0;
+
+    CHECK_THROWS(maxPool2D(input, bad_stride));
+
+    // Test 5: A pooling window larger than the input is invalid.
+    PoolingParams bad_window;
+    bad_window.window_h = 5;
+
+    CHECK_THROWS(maxPool2D(input, bad_window));
+
+    // Test 6: Zero window size must be rejected.
+    PoolingParams zero_window;
+    zero_window.window_w = 0;
+
+    CHECK_THROWS(maxPool2D(input, zero_window));
+
+    if (failures == 0)
+    {
+        cout << "All max pooling tests passed!" << endl;
+        return 0;
+    }
+
+    cout << failures << " test(s) failed." << endl;
+    return 1;
 }

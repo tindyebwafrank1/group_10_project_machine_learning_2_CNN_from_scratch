@@ -1,19 +1,25 @@
-#ifndef CROSS_ENTROPY_HPP
-#define CROSS_ENTROPY_HPP
 
-#include "tensor.hpp" 
-#include <cstddef>
+#ifndef CNN_CROSS_ENTROPY_HPP
+#define CNN_CROSS_ENTROPY_HPP
 
-class CrossEntropyLoss {
-private:
-    
-    const double epsilon = 1e-15; 
+#include <vector>
 
-public:
-    CrossEntropyLoss() = default;
+using namespace std;
 
-    
-    double forward(const Tensor& predictions, const Tensor& targets) const;
-};
+// Calculates categorical cross-entropy for one prediction.
+// probabilities and targets must have the same length.
+double crossEntropyLoss(
+    const vector<double>& probabilities,
+    const vector<double>& targets,
+    double epsilon = 1e-12
+);
 
-#endif 
+// Calculates the average cross-entropy loss across a batch.
+// Each row represents one sample and its class probabilities/targets.
+double crossEntropyLossBatch(
+    const vector<vector<double>>& probabilities,
+    const vector<vector<double>>& targets,
+    double epsilon = 1e-12
+);
+
+#endif

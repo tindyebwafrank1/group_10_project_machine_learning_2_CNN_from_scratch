@@ -1,93 +1,182 @@
+
 #include "pooling_backward.hpp"
+
+#include <limits>
 #include <stdexcept>
 
 using namespace std;
 
-PoolingBackward::PoolingBackward(size_t p_height, size_t p_width, size_t s_stride)
-    : pool_height(p_height), pool_width(p_width), stride(s_stride) {}
-
-Tensor PoolingBackward::max_pooling_backward(const Tensor& dL_dy, const vector<size_t>& input_shape) {
-    if (input_shape.size() != 4) {
-        throw invalid_argument("max_pooling_backward: Input shape must be 4D {N, C, H, W}.");
+// Checks that a tensor has the expected NCHW dimensions.
+static void validateTensorShape(const Tensor& tensor)
+{
+    if (tensor.shape.size() != 4)
+    {
+        throw invalid_argument("Expected a 4D NCHW tensor.");
     }
 
-    // 1. Allocate a zero-filled gradient tensor matching the original input shape
-    Tensor dL_dx(input_shape[0], input_shape[1], input_shape[2], input_shape[3]);
+    size_t N = tensor.shape[0];
+    size_t C = tensor.shape[1];
+    size_t H = tensor.shape[2];
+    size_t W = tensor.shape[3];
 
-    size_t batch = dL_dy.shape[0];
-    size_t channels = dL_dy.shape[1];
-    size_t out_h = dL_dy.shape[2];
-    size_t out_w = dL_dy.shape[3];
-
-    // 2. Map upstream gradients back to original max element coordinates
-    for (size_t n = 0; n < batch; ++n) {
-        for (size_t c = 0; c < channels; ++c) {
-            for (size_t oh = 0; oh < out_h; ++oh) {
-                for (size_t ow = 0; ow < out_w; ++ow) {
-                    
-                    // Locate upstream gradient flat position
-                    size_t out_flat_idx = n * (channels * out_h * out_w)
-                                        + c * (out_h * out_w)
-                                        + oh * out_w
-                                        + ow;
-
-                    // Fetch the original max index tracked during Week 2 forward pass
-                    size_t target_input_flat_idx = max_indices[out_flat_idx];
-
-                    // Accumulate gradient into the tracked max pixel slot (handles overlaps cleanly)
-                    dL_dx.data[target_input_flat_idx] += dL_dy(n, c, oh, ow);
-                }
-            }
-        }
+    if (N == 0 || C == 0 || H == 0 || W == 0 ||
+        C > numeric_limits<size_t>::max() / N ||
+        H > numeric_limits<size_t>::max() / (N * C) ||
+        W > numeric_limits<size_t>::max() / (N * C * H) ||
+        tensor.data.size() != N * C * H * W)
+    {
+        throw invalid_argument("Invalid tensor dimensions or data.");
     }
-
-    return dL_dx;
 }
 
-Tensor PoolingBackward::average_pooling_backward(const Tensor& dL_dy, const vector<size_t>& input_shape) {
-    if (input_shape.size() != 4) {
-        throw invalid_argument("average_pooling_backward: Input shape must be 4D {N, C, H, W}.");
+// Checks that the upstream gradient matches the forward output.
+static void validateGradientShape(
+    const Tensor& output,
+    const Tensor& upstream_gradient)
+{
+    validateTensorShape(output);
+    validateTensorShape(upstream_gradient);
+
+    if (output.shape != upstream_gradient.shape)
+    {
+        throw invalid_argument(
+            "Upstream gradient shape must match the pooling output shape."
+        );
+    }
+}
+
+Tensor maxPool2DBackward(
+    const Tensor& input,
+    const MaxPoolingResult& forward_result,
+    const Tensor& upstream_gradient)
+{
+    validateTensorShape(input);
+
+    validateGradientShape(
+        forward_result.output,
+        upstream_gradient
+    );
+
+    if (forward_result.max_indices.size() !=
+        upstream_gradient.data.size())
+    {
+        throw invalid_argument(
+            "Saved maximum indices must match the output size."
+        );
     }
 
-    Tensor dL_dx(input_shape[0], input_shape[1], input_shape[2], input_shape[3]);
+    Tensor input_gradient(
+        input.shape[0],
+        input.shape[1],
+        input.shape[2],
+        input.shape[3]
+    );
 
-    size_t batch = dL_dy.shape[0];
-    size_t channels = dL_dy.shape[1];
-    size_t out_h = dL_dy.shape[2];
-    size_t out_w = dL_dy.shape[3];
+    input_gradient.fill(0.0);
 
-    size_t in_h = input_shape[2];
-    size_t in_w = input_shape[3];
+    // Route each output gradient to its saved maximum location.
+    for (size_t i = 0; i < upstream_gradient.data.size(); i++)
+    {
+        size_t input_index = forward_result.max_indices[i];
 
-    // Scale coefficient factor for uniform average distribution
-    double scale = 1.0 / static_cast<double>(pool_height * pool_width);
+        if (input_index >= input_gradient.data.size())
+        {
+            throw invalid_argument(
+                "A saved maximum index is outside the input tensor."
+            );
+        }
 
-    // 3. Loop over the output spatial dimensions to distribute the average gradient
-    for (size_t n = 0; n < batch; ++n) {
-        for (size_t c = 0; c < channels; ++c) {
-            for (size_t oh = 0; oh < out_h; ++oh) {
-                for (size_t ow = 0; ow < out_w; ++ow) {
-                    
-                    double upstream_grad = dL_dy(n, c, oh, ow);
-                    size_t start_h = oh * stride;
-                    size_t start_w = ow * stride;
+        // += also handles repeated indices safely.
+        input_gradient.data[input_index] +=
+            upstream_gradient.data[i];
+    }
 
-                    // Distribute uniformly across the pooling window elements
-                    for (size_t kh = 0; kh < pool_height; ++kh) {
-                        for (size_t kw = 0; kw < pool_width; ++kw) {
-                            size_t curr_h = start_h + kh;
-                            size_t curr_w = start_w + kw;
+    return input_gradient;
+}
 
-                            if (curr_h < in_h && curr_w < in_w) {
-                                dL_dx(n, c, curr_h, curr_w) += upstream_grad * scale;
-                            }
+Tensor averagePool2DBackward(
+    const Tensor& input,
+    const PoolingParams& params,
+    const Tensor& upstream_gradient)
+{
+    validateTensorShape(input);
+
+    if (params.window_h == 0 || params.window_w == 0 ||
+        params.stride_h == 0 || params.stride_w == 0)
+    {
+        throw invalid_argument(
+            "Pooling window and stride values must be positive."
+        );
+    }
+
+    size_t N = input.shape[0];
+    size_t C = input.shape[1];
+    size_t H = input.shape[2];
+    size_t W = input.shape[3];
+
+    if (params.window_h > H || params.window_w > W)
+    {
+        throw invalid_argument(
+            "Pooling window cannot be larger than the input."
+        );
+    }
+
+    size_t output_h =
+        1 + (H - params.window_h) / params.stride_h;
+
+    size_t output_w =
+        1 + (W - params.window_w) / params.stride_w;
+
+    // Verify the gradient shape expected from valid average pooling.
+    if (upstream_gradient.shape.size() != 4 ||
+        upstream_gradient.shape[0] != N ||
+        upstream_gradient.shape[1] != C ||
+        upstream_gradient.shape[2] != output_h ||
+        upstream_gradient.shape[3] != output_w ||
+        upstream_gradient.data.size() != N * C * output_h * output_w)
+    {
+        throw invalid_argument(
+            "Upstream gradient shape does not match average pooling output."
+        );
+    }
+
+    Tensor input_gradient(N, C, H, W);
+    input_gradient.fill(0.0);
+
+    double divisor =
+        static_cast<double>(params.window_h) *
+        static_cast<double>(params.window_w);
+
+    // Each pooled gradient is shared equally across its window.
+    for (size_t n = 0; n < N; n++)
+    {
+        for (size_t c = 0; c < C; c++)
+        {
+            for (size_t oh = 0; oh < output_h; oh++)
+            {
+                for (size_t ow = 0; ow < output_w; ow++)
+                {
+                    double contribution =
+                        upstream_gradient(n, c, oh, ow) / divisor;
+
+                    size_t start_h = oh * params.stride_h;
+                    size_t start_w = ow * params.stride_w;
+
+                    for (size_t kh = 0; kh < params.window_h; kh++)
+                    {
+                        for (size_t kw = 0; kw < params.window_w; kw++)
+                        {
+                            size_t h = start_h + kh;
+                            size_t w = start_w + kw;
+
+                            // Overlapping windows accumulate gradients.
+                            input_gradient(n, c, h, w) += contribution;
                         }
                     }
-
                 }
             }
         }
     }
 
-    return dL_dx;
+    return input_gradient;
 }
