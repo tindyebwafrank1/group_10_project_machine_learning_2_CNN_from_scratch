@@ -158,6 +158,54 @@ The exact command depends on the target name and the platform. A
 runnable end-to-end demo should be documented here after it has been
 verified in a clean build.
 
+## Week 4: Training and Release Verification
+
+### Training module
+
+The Week 4 training module implements a trainable softmax classification head using mini-batch gradient descent. It supports configurable epoch count, batch size and learning rate.
+
+### Files
+
+- `include/training.hpp` — training interfaces.
+- `src/training.cpp` — loss, softmax, mini-batch gradients and parameter updates.
+- `examples/week4_training_demo.cpp` — training demonstration.
+- `tests/test_training.cpp` — automated training tests.
+- `reports/edrine_week4_report.txt` — weekly progress report.
+
+### Build the training demonstration
+
+```bash
+g++ -std=c++17 -Wall -Wextra -Iinclude examples/week4_training_demo.cpp src/training.cpp -o week4_training_demo
+```
+
+Run:
+
+```bash
+./week4_training_demo
+```
+
+### Build the training tests
+
+bash
+g++ -std=c++17 -Wall -Wextra -Iinclude tests/test_training.cpp src/training.cpp -o test_training
+```
+
+Run:
+
+```bash
+./test_training
+```
+
+On Windows PowerShell, run the executable using `.\week4_training_demo.exe` or `.\test_training.exe` when compiled with the `.exe` output names.
+
+### Verification
+
+Record the actual compilation and test results before release. Run the existing project tests and integration demos as well.
+
+### Scope
+
+The Week 4 example trains a softmax classification head from feature vectors. It is not, on its own, proof that convolution filters are trained end-to-end. Complete CNN release verification requires successful integration of the project's convolution backward pass, activation and pooling gradients, fully connected gradients, loss gradients and optimizer updates.
+
 ## Design and Engineering Principles
 
 -   **Modularity:** Keep CNN operations separated into focused
