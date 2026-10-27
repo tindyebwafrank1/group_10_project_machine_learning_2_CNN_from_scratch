@@ -1,3 +1,0 @@
-"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\ConvolutionalNeuralNetwork.dir/objects.a
-C:\MinGW\bin\ar.exe qc CMakeFiles\ConvolutionalNeuralNetwork.dir/objects.a @CMakeFiles\ConvolutionalNeuralNetwork.dir\objects1.rsp
-C:\MinGW\bin\c++.exe -Wl,--whole-archive CMakeFiles\ConvolutionalNeuralNetwork.dir/objects.a -Wl,--no-whole-archive -o ConvolutionalNeuralNetwork.exe -Wl,--out-implib,libConvolutionalNeuralNetwork.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\ConvolutionalNeuralNetwork.dir\linkLibs.rsp
