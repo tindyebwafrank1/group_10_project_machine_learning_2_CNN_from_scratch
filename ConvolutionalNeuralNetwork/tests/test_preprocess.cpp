@@ -12,16 +12,6 @@ using namespace cnn;
 using Vec = vector<double>;
 
 static int failures = 0;
-<<<<<<< HEAD
-#define CHECK(cond)   
-                                                                    
-    do {                                                                                  
-        if (!(cond)) {                                                                    
-            cerr << "FAIL " << __FILE__ << ":" << __LINE__ << "  " << #cond << "\n";      
-            ++failures;                                                                   
-        }                                                                                 
-    } while (0)
-=======
 
 static void check_impl(
     bool ok,
@@ -37,7 +27,6 @@ static void check_impl(
 }
 
 #define CHECK(cond) check_impl((cond), #cond, __FILE__, __LINE__)
->>>>>>> fd77a04a63b387f9166d15b8b3378cdf9d36f514
 
 template <typename F>
 static bool throws(F&& f) {

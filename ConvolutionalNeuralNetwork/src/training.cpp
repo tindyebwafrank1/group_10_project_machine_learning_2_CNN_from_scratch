@@ -228,7 +228,8 @@ TrainingHistory SoftmaxClassifier::train(
              start += config.batch_size)
         {
             size_t end = min(
-                start + config.batch_size, samples.size());
+                start + config.batch_size, 
+                samples.size());
 
             vector<TrainingSample> batch(
                 samples.begin() + static_cast<ptrdiff_t>(start),

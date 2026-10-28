@@ -6,7 +6,7 @@ Group Members and Work Done
 | # | Group Member | Work Done |
 |---|--------------|-----------|
 | 1 | Tindyebwa Frank (Leader) | Flattening feature maps from 4D tensors into 2D vectors |
-| 2 | Kweyamba Peter (Risk Manager) | Fully connected forward pass using `(z = Wx + b)` |
+| 2 | Kweyamba Peter (Risk Manager) | Fully connected forward pass using (z = Wx + b) |
 | 3 | Atugonza Jeremy | Weight and bias initialization using Xavier and He methods |
 | 4 | Namukasa Agatha | Numerically stable Softmax activation layer |
 | 5 | Mugarura Allan | Cross-Entropy Loss function module |
