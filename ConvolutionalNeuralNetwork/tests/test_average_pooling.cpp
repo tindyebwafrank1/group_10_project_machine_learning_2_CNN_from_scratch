@@ -13,7 +13,7 @@ int main()
 {
     try
     {
-        // Test 1: Basic average pooling.
+        // Basic average pooling.
         Tensor input(1, 1, 4, 4);
 
         double values[4][4] = {
@@ -65,7 +65,7 @@ int main()
 
         cout << "Test 1 passed: average pooling values and shape\n";
 
-        // Test 2: A window of size 1x1 preserves values.
+        // A window of size 1x1 preserves values.
         cnn::PoolingParams single_params;
         single_params.window_h = 1;
         single_params.window_w = 1;
@@ -92,7 +92,7 @@ int main()
 
         cout << "Test 2 passed: 1x1 pooling preserves values\n";
 
-        // Test 3: Zero window size must be rejected.
+        // Zero window size must be rejected.
         bool exception_thrown = false;
 
         try
@@ -117,7 +117,7 @@ int main()
 
         cout << "Test 3 passed: zero window size rejected\n";
 
-        // Test 4: A window larger than the input must be rejected.
+        //A window larger than the input must be rejected.
         exception_thrown = false;
 
         try
