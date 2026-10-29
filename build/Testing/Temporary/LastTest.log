@@ -1,0 +1,594 @@
+Start testing: Oct 29 14:17 E. Africa Standard Time
+----------------------------------------------------------
+1/33 Testing: test_activation_gradients
+1/33 Test: test_activation_gradients
+Command: "C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/build/test_activation_gradients.exe"
+Directory: C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/ConvolutionalNeuralNetwork
+"test_activation_gradients" start time: Oct 29 14:17 E. Africa Standard Time
+Output:
+----------------------------------------------------------
+All activation gradient tests passed!
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"test_activation_gradients" end time: Oct 29 14:17 E. Africa Standard Time
+"test_activation_gradients" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/33 Testing: test_activations
+2/33 Test: test_activations
+Command: "C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/build/test_activations.exe"
+Directory: C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/ConvolutionalNeuralNetwork
+"test_activations" start time: Oct 29 14:17 E. Africa Standard Time
+Output:
+----------------------------------------------------------
+All activation tests passed!
+Sigmoid(0) = 0.5
+Tanh(0) = 0
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"test_activations" end time: Oct 29 14:17 E. Africa Standard Time
+"test_activations" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/33 Testing: test_average_pooling
+3/33 Test: test_average_pooling
+Command: "C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/build/test_average_pooling.exe"
+Directory: C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/ConvolutionalNeuralNetwork
+"test_average_pooling" start time: Oct 29 14:17 E. Africa Standard Time
+Output:
+----------------------------------------------------------
+Test 1 passed: average pooling values and shape
+Test 2 passed: 1x1 pooling preserves values
+Test 3 passed: zero window size rejected
+Test 4 passed: oversized window rejected
+
+All 4 average pooling tests passed.
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"test_average_pooling" end time: Oct 29 14:17 E. Africa Standard Time
+"test_average_pooling" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/33 Testing: test_cnn_feature_integration
+4/33 Test: test_cnn_feature_integration
+Command: "C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/build/test_cnn_feature_integration.exe"
+Directory: C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/ConvolutionalNeuralNetwork
+"test_cnn_feature_integration" start time: Oct 29 14:17 E. Africa Standard Time
+Output:
+----------------------------------------------------------
+All CNN feature integration tests passed!
+<end of output>
+Test time =   1.30 sec
+----------------------------------------------------------
+Test Passed.
+"test_cnn_feature_integration" end time: Oct 29 14:17 E. Africa Standard Time
+"test_cnn_feature_integration" time elapsed: 00:00:01
+----------------------------------------------------------
+
+5/33 Testing: test_cnn_forward_integration
+5/33 Test: test_cnn_forward_integration
+Command: "C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/build/test_cnn_forward_integration.exe"
+Directory: C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/ConvolutionalNeuralNetwork
+"test_cnn_forward_integration" start time: Oct 29 14:17 E. Africa Standard Time
+Output:
+----------------------------------------------------------
+All CNN forward integration tests passed!
+Predicted demo class: 2
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Passed.
+"test_cnn_forward_integration" end time: Oct 29 14:17 E. Africa Standard Time
+"test_cnn_forward_integration" time elapsed: 00:00:00
+----------------------------------------------------------
+
+6/33 Testing: test_convolution
+6/33 Test: test_convolution
+Command: "C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/build/test_convolution.exe"
+Directory: C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/ConvolutionalNeuralNetwork
+"test_convolution" start time: Oct 29 14:17 E. Africa Standard Time
+Output:
+----------------------------------------------------------
+Test 1 passed: basic convolution
+Test 2 passed: output dimension
+Test 3 passed: oversized kernel rejected
+Test 4 passed: invalid input shape rejected
+
+All 4 convolution tests passed successfully.
+<end of output>
+Test time =   0.82 sec
+----------------------------------------------------------
+Test Passed.
+"test_convolution" end time: Oct 29 14:17 E. Africa Standard Time
+"test_convolution" time elapsed: 00:00:00
+----------------------------------------------------------
+
+7/33 Testing: test_convolution_backward
+7/33 Test: test_convolution_backward
+Command: "C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/build/test_convolution_backward.exe"
+Directory: C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/ConvolutionalNeuralNetwork
+"test_convolution_backward" start time: Oct 29 14:17 E. Africa Standard Time
+Output:
+----------------------------------------------------------
+Test 1 passed: kernel gradients calculated correctly
+Test 2 passed: input gradients calculated correctly
+Test 3 passed: invalid gradient shape rejected
+Test 4 passed: incompatible channels rejected
+
+All 4 convolution backward tests passed.
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Passed.
+"test_convolution_backward" end time: Oct 29 14:17 E. Africa Standard Time
+"test_convolution_backward" time elapsed: 00:00:00
+----------------------------------------------------------
+
+8/33 Testing: test_convolution_pipeline
+8/33 Test: test_convolution_pipeline
+Command: "C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/build/test_convolution_pipeline.exe"
+Directory: C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/ConvolutionalNeuralNetwork
+"test_convolution_pipeline" start time: Oct 29 14:17 E. Africa Standard Time
+Output:
+----------------------------------------------------------
+All convolution pipeline tests passed!
+<end of output>
+Test time =   0.17 sec
+----------------------------------------------------------
+Test Passed.
+"test_convolution_pipeline" end time: Oct 29 14:17 E. Africa Standard Time
+"test_convolution_pipeline" time elapsed: 00:00:00
+----------------------------------------------------------
+
+9/33 Testing: test_cross_entropy
+9/33 Test: test_cross_entropy
+Command: "C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/build/test_cross_entropy.exe"
+Directory: C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/ConvolutionalNeuralNetwork
+"test_cross_entropy" start time: Oct 29 14:17 E. Africa Standard Time
+Output:
+----------------------------------------------------------
+All cross-entropy tests passed!
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Passed.
+"test_cross_entropy" end time: Oct 29 14:17 E. Africa Standard Time
+"test_cross_entropy" time elapsed: 00:00:00
+----------------------------------------------------------
+
+10/33 Testing: test_feature_block
+10/33 Test: test_feature_block
+Command: "C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/build/test_feature_block.exe"
+Directory: C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/ConvolutionalNeuralNetwork
+"test_feature_block" start time: Oct 29 14:17 E. Africa Standard Time
+Output:
+----------------------------------------------------------
+Feature block tests passed!
+Output shape: (1, 2, 1, 1)
+Feature map 1: 4
+Feature map 2: 0
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"test_feature_block" end time: Oct 29 14:17 E. Africa Standard Time
+"test_feature_block" time elapsed: 00:00:00
+----------------------------------------------------------
+
+11/33 Testing: test_filter_initialization
+11/33 Test: test_filter_initialization
+Command: "C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/build/test_filter_initialization.exe"
+Directory: C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/ConvolutionalNeuralNetwork
+"test_filter_initialization" start time: Oct 29 14:17 E. Africa Standard Time
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Failed.
+"test_filter_initialization" end time: Oct 29 14:17 E. Africa Standard Time
+"test_filter_initialization" time elapsed: 00:00:00
+----------------------------------------------------------
+
+12/33 Testing: test_flatten
+12/33 Test: test_flatten
+Command: "C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/build/test_flatten.exe"
+Directory: C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/ConvolutionalNeuralNetwork
+"test_flatten" start time: Oct 29 14:17 E. Africa Standard Time
+Output:
+----------------------------------------------------------
+
+All flattening tests passed!
+
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"test_flatten" end time: Oct 29 14:17 E. Africa Standard Time
+"test_flatten" time elapsed: 00:00:00
+----------------------------------------------------------
+
+13/33 Testing: test_flatten_backward
+13/33 Test: test_flatten_backward
+Command: "C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/build/test_flatten_backward.exe"
+Directory: C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/ConvolutionalNeuralNetwork
+"test_flatten_backward" start time: Oct 29 14:17 E. Africa Standard Time
+Output:
+----------------------------------------------------------
+All flatten backward tests passed.
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"test_flatten_backward" end time: Oct 29 14:17 E. Africa Standard Time
+"test_flatten_backward" time elapsed: 00:00:00
+----------------------------------------------------------
+
+14/33 Testing: test_fully_connected
+14/33 Test: test_fully_connected
+Command: "C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/build/test_fully_connected.exe"
+Directory: C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/ConvolutionalNeuralNetwork
+"test_fully_connected" start time: Oct 29 14:17 E. Africa Standard Time
+Output:
+----------------------------------------------------------
+test_fully_connected: all passed
+<end of output>
+Test time =   0.82 sec
+----------------------------------------------------------
+Test Passed.
+"test_fully_connected" end time: Oct 29 14:17 E. Africa Standard Time
+"test_fully_connected" time elapsed: 00:00:00
+----------------------------------------------------------
+
+15/33 Testing: test_fully_connected_backward
+15/33 Test: test_fully_connected_backward
+Command: "C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/build/test_fully_connected_backward.exe"
+Directory: C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/ConvolutionalNeuralNetwork
+"test_fully_connected_backward" start time: Oct 29 14:17 E. Africa Standard Time
+Output:
+----------------------------------------------------------
+test_fully_connected_backward: all passed
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"test_fully_connected_backward" end time: Oct 29 14:17 E. Africa Standard Time
+"test_fully_connected_backward" time elapsed: 00:00:00
+----------------------------------------------------------
+
+16/33 Testing: test_image
+16/33 Test: test_image
+Command: "C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/build/test_image.exe"
+Directory: C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/ConvolutionalNeuralNetwork
+"test_image" start time: Oct 29 14:17 E. Africa Standard Time
+Output:
+----------------------------------------------------------
+Image loaded successfully!
+Width: 736
+Height: 1104
+Channels: 3
+Original Pixel (0,0): R=136 G=115 B=26
+Changed Pixel (0,0): R=255 G=0 B=0
+<end of output>
+Test time =   0.12 sec
+----------------------------------------------------------
+Test Passed.
+"test_image" end time: Oct 29 14:17 E. Africa Standard Time
+"test_image" time elapsed: 00:00:00
+----------------------------------------------------------
+
+17/33 Testing: test_image_loader
+17/33 Test: test_image_loader
+Command: "C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/build/test_image_loader.exe"
+Directory: C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/ConvolutionalNeuralNetwork
+"test_image_loader" start time: Oct 29 14:17 E. Africa Standard Time
+Output:
+----------------------------------------------------------
+
+Image loaded successfully!
+Width: 736
+Height: 1104
+Channels: 3
+
+First pixel:
+R: 136
+G: 115
+B: 26
+
+<end of output>
+Test time =   0.11 sec
+----------------------------------------------------------
+Test Passed.
+"test_image_loader" end time: Oct 29 14:17 E. Africa Standard Time
+"test_image_loader" time elapsed: 00:00:00
+----------------------------------------------------------
+
+18/33 Testing: test_loss_gradient
+18/33 Test: test_loss_gradient
+Command: "C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/build/test_loss_gradient.exe"
+Directory: C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/ConvolutionalNeuralNetwork
+"test_loss_gradient" start time: Oct 29 14:17 E. Africa Standard Time
+Output:
+----------------------------------------------------------
+
+All loss gradient tests passed.
+
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"test_loss_gradient" end time: Oct 29 14:17 E. Africa Standard Time
+"test_loss_gradient" time elapsed: 00:00:00
+----------------------------------------------------------
+
+19/33 Testing: test_max_pooling
+19/33 Test: test_max_pooling
+Command: "C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/build/test_max_pooling.exe"
+Directory: C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/ConvolutionalNeuralNetwork
+"test_max_pooling" start time: Oct 29 14:17 E. Africa Standard Time
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Failed.
+"test_max_pooling" end time: Oct 29 14:17 E. Africa Standard Time
+"test_max_pooling" time elapsed: 00:00:00
+----------------------------------------------------------
+
+20/33 Testing: test_metrics
+20/33 Test: test_metrics
+Command: "C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/build/test_metrics.exe"
+Directory: C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/ConvolutionalNeuralNetwork
+"test_metrics" start time: Oct 29 14:17 E. Africa Standard Time
+Output:
+----------------------------------------------------------
+All metrics tests passed successfully.
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Passed.
+"test_metrics" end time: Oct 29 14:17 E. Africa Standard Time
+"test_metrics" time elapsed: 00:00:00
+----------------------------------------------------------
+
+21/33 Testing: test_multi_channel_convolution
+21/33 Test: test_multi_channel_convolution
+Command: "C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/build/test_multi_channel_convolution.exe"
+Directory: C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/ConvolutionalNeuralNetwork
+"test_multi_channel_convolution" start time: Oct 29 14:17 E. Africa Standard Time
+Output:
+----------------------------------------------------------
+Multi-channel convolution tests passed!
+Output shape: (1, 2, 2, 2)
+Feature map 1 value: 12
+Feature map 2 value: 8
+<end of output>
+Test time =   0.85 sec
+----------------------------------------------------------
+Test Passed.
+"test_multi_channel_convolution" end time: Oct 29 14:17 E. Africa Standard Time
+"test_multi_channel_convolution" time elapsed: 00:00:00
+----------------------------------------------------------
+
+22/33 Testing: test_padding
+22/33 Test: test_padding
+Command: "C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/build/test_padding.exe"
+Directory: C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/ConvolutionalNeuralNetwork
+"test_padding" start time: Oct 29 14:17 E. Africa Standard Time
+Output:
+----------------------------------------------------------
+Testing zeroPad()...
+zeroPad() passed!
+Testing zeroPad() with no padding...
+No-padding test passed!
+Testing calculateSamePadding()...
+Same-padding test 1 passed!
+Same-padding test 2 passed!
+Testing invalid stride...
+Invalid-stride test passed!
+
+All padding tests passed successfully!
+<end of output>
+Test time =   0.82 sec
+----------------------------------------------------------
+Test Passed.
+"test_padding" end time: Oct 29 14:17 E. Africa Standard Time
+"test_padding" time elapsed: 00:00:00
+----------------------------------------------------------
+
+23/33 Testing: test_pooling
+23/33 Test: test_pooling
+Command: "C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/build/test_pooling.exe"
+Directory: C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/ConvolutionalNeuralNetwork
+"test_pooling" start time: Oct 29 14:17 E. Africa Standard Time
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Failed.
+"test_pooling" end time: Oct 29 14:17 E. Africa Standard Time
+"test_pooling" time elapsed: 00:00:00
+----------------------------------------------------------
+
+24/33 Testing: test_pooling_backward
+24/33 Test: test_pooling_backward
+Command: "C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/build/test_pooling_backward.exe"
+Directory: C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/ConvolutionalNeuralNetwork
+"test_pooling_backward" start time: Oct 29 14:17 E. Africa Standard Time
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Failed.
+"test_pooling_backward" end time: Oct 29 14:17 E. Africa Standard Time
+"test_pooling_backward" time elapsed: 00:00:00
+----------------------------------------------------------
+
+25/33 Testing: test_prediction
+25/33 Test: test_prediction
+Command: "C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/build/test_prediction.exe"
+Directory: C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/ConvolutionalNeuralNetwork
+"test_prediction" start time: Oct 29 14:17 E. Africa Standard Time
+Output:
+----------------------------------------------------------
+Test 1 passed: highest score selected
+Test 2 passed: first class selected
+Test 3 passed: last class selected
+Test 4 passed: ties handled correctly
+Test 5 passed: single class handled
+Test 6 passed: empty input rejected
+Test 7 passed: invalid score rejected
+
+All 7 prediction tests passed.
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Passed.
+"test_prediction" end time: Oct 29 14:17 E. Africa Standard Time
+"test_prediction" time elapsed: 00:00:00
+----------------------------------------------------------
+
+26/33 Testing: test_preprocess
+26/33 Test: test_preprocess
+Command: "C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/build/test_preprocess.exe"
+Directory: C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/ConvolutionalNeuralNetwork
+"test_preprocess" start time: Oct 29 14:17 E. Africa Standard Time
+Output:
+----------------------------------------------------------
+test_preprocess: all passed
+<end of output>
+Test time =   0.84 sec
+----------------------------------------------------------
+Test Passed.
+"test_preprocess" end time: Oct 29 14:17 E. Africa Standard Time
+"test_preprocess" time elapsed: 00:00:00
+----------------------------------------------------------
+
+27/33 Testing: test_relu
+27/33 Test: test_relu
+Command: "C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/build/test_relu.exe"
+Directory: C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/ConvolutionalNeuralNetwork
+"test_relu" start time: Oct 29 14:17 E. Africa Standard Time
+Output:
+----------------------------------------------------------
+[RUNNING] ReLU activation tests...
+[PASS] All ReLU tests passed!
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"test_relu" end time: Oct 29 14:17 E. Africa Standard Time
+"test_relu" time elapsed: 00:00:00
+----------------------------------------------------------
+
+28/33 Testing: test_sgd_optimizer
+28/33 Test: test_sgd_optimizer
+Command: "C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/build/test_sgd_optimizer.exe"
+Directory: C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/ConvolutionalNeuralNetwork
+"test_sgd_optimizer" start time: Oct 29 14:17 E. Africa Standard Time
+Output:
+----------------------------------------------------------
+All SGD optimizer tests passed successfully.
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"test_sgd_optimizer" end time: Oct 29 14:17 E. Africa Standard Time
+"test_sgd_optimizer" time elapsed: 00:00:00
+----------------------------------------------------------
+
+29/33 Testing: test_softmax
+29/33 Test: test_softmax
+Command: "C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/build/test_softmax.exe"
+Directory: C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/ConvolutionalNeuralNetwork
+"test_softmax" start time: Oct 29 14:17 E. Africa Standard Time
+Output:
+----------------------------------------------------------
+All softmax tests passed
+<end of output>
+Test time =   0.92 sec
+----------------------------------------------------------
+Test Passed.
+"test_softmax" end time: Oct 29 14:17 E. Africa Standard Time
+"test_softmax" time elapsed: 00:00:00
+----------------------------------------------------------
+
+30/33 Testing: test_strides
+30/33 Test: test_strides
+Command: "C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/build/test_strides.exe"
+Directory: C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/ConvolutionalNeuralNetwork
+"test_strides" start time: Oct 29 14:17 E. Africa Standard Time
+Output:
+----------------------------------------------------------
+test_strides: all passed
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"test_strides" end time: Oct 29 14:17 E. Africa Standard Time
+"test_strides" time elapsed: 00:00:00
+----------------------------------------------------------
+
+31/33 Testing: test_tensor
+31/33 Test: test_tensor
+Command: "C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/build/test_tensor.exe"
+Directory: C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/ConvolutionalNeuralNetwork
+"test_tensor" start time: Oct 29 14:17 E. Africa Standard Time
+Output:
+----------------------------------------------------------
+All 12 Tensor tests passed.
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"test_tensor" end time: Oct 29 14:17 E. Africa Standard Time
+"test_tensor" time elapsed: 00:00:00
+----------------------------------------------------------
+
+32/33 Testing: test_training
+32/33 Test: test_training
+Command: "C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/build/test_training.exe"
+Directory: C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/ConvolutionalNeuralNetwork
+"test_training" start time: Oct 29 14:17 E. Africa Standard Time
+Output:
+----------------------------------------------------------
+All training tests passed!
+Initial loss: 0.693147
+Final loss: 0.0561882
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"test_training" end time: Oct 29 14:17 E. Africa Standard Time
+"test_training" time elapsed: 00:00:00
+----------------------------------------------------------
+
+33/33 Testing: test_weight_initialization
+33/33 Test: test_weight_initialization
+Command: "C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/build/test_weight_initialization.exe"
+Directory: C:/Users/samth/Desktop/CNN/group_10_project_machine_learning_2_CNN_from_scratch/ConvolutionalNeuralNetwork
+"test_weight_initialization" start time: Oct 29 14:17 E. Africa Standard Time
+Output:
+----------------------------------------------------------
+Xavier initialization test passed!
+He initialization test passed!
+Bias initialization test passed!
+Invalid dimensions test passed!
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"test_weight_initialization" end time: Oct 29 14:17 E. Africa Standard Time
+"test_weight_initialization" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Oct 29 14:17 E. Africa Standard Time

@@ -1,0 +1,38 @@
+test_activation_gradients 2 0.0192393
+test_activations 2 0.0175822
+test_average_pooling 2 0.0177738
+test_cnn_feature_integration 1 1.30191
+test_cnn_forward_integration 2 0.0280088
+test_convolution 1 0.82458
+test_convolution_backward 2 0.0252961
+test_convolution_pipeline 2 0.0825785
+test_cross_entropy 2 0.0280461
+test_feature_block 2 0.0162567
+test_filter_initialization 0 0
+test_flatten 2 0.018951
+test_flatten_backward 2 0.0207455
+test_fully_connected 1 0.817634
+test_fully_connected_backward 2 0.0186366
+test_image 2 0.0606754
+test_image_loader 2 0.0546121
+test_loss_gradient 2 0.0199909
+test_max_pooling 0 0
+test_metrics 2 0.0292193
+test_multi_channel_convolution 1 0.849566
+test_padding 1 0.816126
+test_pooling 0 0
+test_pooling_backward 0 0
+test_prediction 2 0.0277619
+test_preprocess 1 0.842925
+test_relu 2 0.0176425
+test_sgd_optimizer 2 0.0223381
+test_softmax 1 0.924834
+test_strides 2 0.0197458
+test_tensor 2 0.0173975
+test_training 2 0.0152303
+test_weight_initialization 2 0.0186337
+---
+test_filter_initialization
+test_max_pooling
+test_pooling
+test_pooling_backward
