@@ -2,10 +2,10 @@
 #include <iostream>
 #include <stdexcept>
 
-#include "tensor.hpp"
-#include "convolution.hpp"
-#include "relu.hpp"
-#include "max_pooling.hpp"
+#include "../include/tensor.hpp"
+#include "../include/convolution.hpp"
+#include "../include/relu.hpp"
+#include "../include/max_pooling.hpp"
 
 using namespace std;
 
