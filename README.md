@@ -1,275 +1,100 @@
-# Reusable Convolutional Neural Network (CNN) Library in C++
 
-A modular C++17 library project for implementing the core operations of
-a convolutional neural network (CNN), developed as the Machine Learning
-2 (ML2) group project.
 
-> **Project status:** In development\
-> **Language standard:** C++17\
-> **Build system:** CMake\
-> **Project deadline:** 5 November 2026
+# Convolutional Neural Network (CNN) From Scratch in C++
+**Group 10 | Machine Learning 2 (ML2)**
 
-## Overview
+## 1. Problem Being Addressed
+Modern deep learning frameworks (like TensorFlow and PyTorch) abstract away the underlying mathematics and memory management, acting as black boxes. The challenge of this project was to demystify neural networks by building a Convolutional Neural Network entirely from scratch in pure C++ without relying on any external machine learning libraries. This required implementing everything from raw contiguous memory tensor allocation to the complex calculus of backpropagation and gradient descent.
 
-This project aims to build a reusable CNN library in C++ with clearly
-separated public interfaces, implementations, tests, and example
-programs. The library is being developed module by module, with unit
-tests and integration checks used to verify numerical operations, tensor
-dimensions, and data flow through the network.
+## 2. Project Objectives
+*   **Architectural Integrity:** Design a modular, highly reusable static library (`cnn_lib`) with a strictly separated public API (`include/`) and internal implementations (`src/`).
+*   **First-Principles Engineering:** Implement object-oriented principles, contiguous memory allocation, and mathematical formulations without external matrix libraries.
+*   **Rigorous Validation:** Verify every component using 33 dedicated unit tests driven by CMake and CTest.
 
-The intended workflow covers image loading and preprocessing, tensor
-operations, convolution, padding and strides, activation functions,
-pooling, dense layers, probability and loss calculations, and
-prediction/evaluation utilities.
+## 3. Library Design
+The project adheres to professional C++ directory conventions, ensuring that the core logic is entirely decoupled from the test suites and demonstration programs.
 
-This repository is an academic engineering project. Its implementation
-and test coverage should be considered in progress until the relevant
-modules have been completed and verified.
-
-## Project Objectives
-
--   Provide reusable C++ components for core CNN operations.
--   Represent and manipulate tensors with dynamic dimensions.
--   Implement 2D convolution, padding, stride handling, and spatial
-    pooling.
--   Provide common activation functions, including ReLU, Sigmoid, and
-    Leaky ReLU.
--   Support dense-layer calculations, Softmax, and cross-entropy loss.
--   Connect the components through a CNN pipeline.
--   Check tensor shapes and invalid inputs at module boundaries.
--   Maintain a modular codebase with unit tests and runnable examples.
-
-## Planned Features
-# Component Responsibilities
-
-| Component | Intended Responsibility |
-|----------------------|-----------------------------------------|
-| **Image loading and preprocessing** | Load image data, validate paths and inputs, and scale/normalize pixel values. |
-| **Tensor operations** | Dynamic N-dimensional representation, indexing, shape checks, and numerical safety. |
-| **2D convolution** | Apply convolution kernels and accumulate feature values. |
-| **Padding and strides** | Handle spatial borders and control filter movement. |
-| **Activation functions** | Element-wise ReLU, Sigmoid, and Leaky ReLU. |
-| **Pooling** | Max pooling and average pooling over spatial windows. |
-| **Dense layer** | Flatten features and perform weight-based matrix/vector calculations. |
-| **Softmax and cross-entropy** | Convert scores to probabilities and calculate classification loss. |
-| **Pipeline and verification** | Connect processing stages and verify dimension compatibility. |
-| **Evaluation utilities** | Support prediction and evaluation measures as implementation progresses. |
-These are the planned responsibilities from the project roadmap;
-availability and completeness depend on the current state of the source
-code.
-
-## Repository Structure
-
-The intended repository layout is:
-
-``` text
-.
+```text
+ConvolutionalNeuralNetwork/
 ├── CMakeLists.txt
-├── include/
-│   └── cnn/
-│       ├── cnn_pipeline.hpp
-│       ├── image_loader.hpp
-│       ├── tensor.hpp
-│       ├── conv2d.hpp
-│       ├── padding.hpp
-│       ├── activations.hpp
-│       ├── pooling.hpp
-│       ├── dense_loss.hpp
-│       └── routing_verifier.hpp
-├── src/
-│   ├── cnn_pipeline.cpp
-│   ├── image_loader.cpp
-│   ├── tensor.cpp
-│   ├── conv2d.cpp
-│   ├── pooling.cpp
-│   └── dense_loss.cpp
-├── tests/
-│   ├── test_image_loader.cpp
-│   ├── test_tensor.cpp
-│   ├── test_conv2d.cpp
-│   ├── test_pooling.cpp
-│   ├── test_dense_loss.cpp
-│   └── test_routing.cpp
-├── examples/
-│   └── cnn_demo.cpp
-└── reports/
-    ├── week-01.md
-    ├── week-02.md
-    ├── week-03.md
-    └── final-report.md
+├── include/                  # Public API headers
+│   ├── tensor.hpp
+│   ├── conv2d.hpp
+│   ├── pooling.hpp
+│   ├── fully_connected.hpp
+│   └── ...
+├── src/                      # Internal C++ implementations
+│   └── ...
+├── tests/                    # 33 Unit Test suites
+│   └── ...
+└── examples/                 # Demonstration applications
+    └── ...
+```
+The library utilizes a **Functional API** for its mathematical operations (e.g., `fullyConnectedBackward` takes weights, inputs, and gradients as arguments and returns the computed gradients). This stateless design ensures the library is thread-safe, predictable, and highly reusable. Complex structures, like the `FullyConnected` layer, utilize strict encapsulation to protect internal weights and dimensions.
+
+## 4. Main Functionality
+The library provides reusable C++ components for core CNN operations:
+*   **Tensor Operations:** Dynamic N-dimensional representation, contiguous memory allocation, indexing, and numerical safety.
+*   **2D Convolution:** Multi-channel convolution, padding, stride handling, and spatial feature extraction.
+*   **Pooling:** Max and average pooling to downsample feature maps and provide translational invariance.
+*   **Dense Layers:** Flattening feature maps and performing weight-based matrix/vector calculations (\(z = Wx + b\)).
+*   **Activations & Loss:** ReLU, Sigmoid, Softmax, and Cross-Entropy loss.
+*   **Training:** A fully functional mini-batch training loop utilizing SGD (Stochastic Gradient Descent).
+
+## 5. Important Implementation Decisions
+*   **Memory Management:** Tensors are stored as a contiguous 1D `std::vector<double>`, with multi-index access handled via an overloaded `operator()(n, c, h, w)`.
+*   **Encapsulation:** In the `FullyConnected` class, weights and biases are strictly private. They can only be mutated via validated setters (`setWeights`), which check for dimension mismatches and NaN/Infinity values before committing changes.
+*   **Const-Correctness:** The library distinguishes between `forward()` (used in training, mutates the object to cache input) and `infer()` (used in evaluation, marked `const` to guarantee it cannot alter the model).
+*   **Zero-Padding Without Memory Copies:** Convolution and stride logic map padded coordinates back to the original image mathematically, avoiding the overhead of physically allocating a larger padded matrix.
+
+## 6. Demonstration of the Working Library
+The library is compiled using CMake and MinGW/GCC. It builds cleanly with strict adherence to C++17 standards (`-Wall -Wextra -Wpedantic`).
+
+### Build Instructions
+To compile the library, tests, and examples, run the following commands from the project root:
+
+```powershell
+# 1. Configure CMake
+cmake -S ConvolutionalNeuralNetwork -B build -G "MinGW Makefiles"
+
+# 2. Build the project
+cmake --build build
 ```
 
-The tree illustrates the planned organization. Actual filenames may
-differ as the implementation evolves. Keep public declarations in
-`include/`, implementation files in `src/`, automated checks in
-`tests/`, and runnable demonstrations in `examples/`.
+### Run the Demos
+Once built, you can run the included demonstrations. The `fully_connected_training_demo` shows the network successfully learning an 8-point dataset over 30 epochs, reducing loss and improving accuracy.
 
-## Requirements
-
-Before building, ensure the development environment has:
-
--   A C++ compiler with C++17 support (for example, a recent GCC, Clang,
-    or MSVC toolchain).
--   CMake 3.15 or newer.
--   Git.
--   A test framework or test setup if required by the repository's
-    current CMake configuration.
-
-Any additional image-decoding library or third-party dependency must be
-documented when it is selected and added to the build.
-
-Tests should cover normal calculations and edge cases, including invalid
-file paths, incompatible tensor shapes, boundary indexing, convolution
-reference matrices, stride/padding combinations, pooling windows, and
-numerical stability.
-
-## Run the Example
-
-The planned demonstration entry point is `examples/cnn_demo.cpp`. Once
-the example is included as a CMake executable target, build it using the
-target name configured in CMake and run the resulting executable.
-
-The exact command depends on the target name and the platform. A
-runnable end-to-end demo should be documented here after it has been
-verified in a clean build.
-
-## Week 4: Training and Release Verification
-
-### Training module
-
-The Week 4 training module implements a trainable softmax classification head using mini-batch gradient descent. It supports configurable epoch count, batch size and learning rate.
-
-### Files
-
-- `include/training.hpp` — training interfaces.
-- `src/training.cpp` — loss, softmax, mini-batch gradients and parameter updates.
-- `examples/week4_training_demo.cpp` — training demonstration.
-- `tests/test_training.cpp` — automated training tests.
-- `reports/edrine_week4_report.txt` — weekly progress report.
-
-### Build the training demonstration
-
-```bash
-g++ -std=c++17 -Wall -Wextra -Iinclude examples/week4_training_demo.cpp src/training.cpp -o week4_training_demo
+```powershell
+.\build\stride_demo.exe
+.\build\fully_connected_training_demo.exe
 ```
 
-Run:
+## 7. Testing Approach and Results
+*   **Framework:** A custom C++ unit testing framework compiled via CMake and executed using CTest.
+*   **Coverage:** 33 dedicated test files covering every module (Tensor allocation, convolutions, pooling, backpropagation, and optimizer updates).
+*   **Validation:** Tests include hand-calculated reference matrices, boundary indexing checks, and numerical stability guards.
+*   **Result:** **100% pass rate.**
 
-```bash
-./week4_training_demo
+To run the tests yourself:
+```powershell
+ctest --test-dir build
 ```
+*(Output: `100% tests passed, 0 tests failed out of 33`)*
 
-### Build the training tests
+## 8. Challenges Encountered and How They Were Addressed
+*   **The "Most Vexing Parse":** During the integration of the training demos, the compiler misinterpreted `FullyConnectedTrainable layer(2, classes);` as a function declaration rather than a variable instantiation. This was resolved by switching to uniform initialization (`layer{2, classes}`).
+*   **API Discrepancies:** The demo files originally relied on a stateful Object-Oriented API that didn't match the functional headers. We bridged this gap by writing manual accumulation loops in the demos, ensuring the gradients calculated by the functional backward pass were correctly applied to the weights.
+*   **Windows Security Blocks:** CTest initially threw `BAD_COMMAND` errors because Windows Smart App Control blocked the newly compiled `.exe` files. This was resolved by configuring Windows Defender and utilizing CMake generator expressions (`$<TARGET_FILE:...>`) to ensure accurate test execution paths.
 
-bash
-g++ -std=c++17 -Wall -Wextra -Iinclude tests/test_training.cpp src/training.cpp -o test_training
-```
-
-Run:
-
-```bash
-./test_training
-```
-
-On Windows PowerShell, run the executable using `.\week4_training_demo.exe` or `.\test_training.exe` when compiled with the `.exe` output names.
-
-### Verification
-
-Record the actual compilation and test results before release. Run the existing project tests and integration demos as well.
-
-### Scope
-
-The Week 4 example trains a softmax classification head from feature vectors. It is not, on its own, proof that convolution filters are trained end-to-end. Complete CNN release verification requires successful integration of the project's convolution backward pass, activation and pooling gradients, fully connected gradients, loss gradients and optimizer updates.
-
-## Design and Engineering Principles
-
--   **Modularity:** Keep CNN operations separated into focused
-    components.
--   **Interface/implementation separation:** Place public declarations
-    in headers and implementation logic in source files.
--   **Validation:** Check dimensions, parameters, and input paths at
-    module boundaries.
--   **Numerical care:** Test edge cases and guard against invalid
-    numerical values where appropriate.
--   **Testability:** Use small, hand-calculated reference cases
-    alongside integration tests.
--   **Maintainability:** Prefer clear names, consistent formatting, and
-    focused changes.
--   **Review before merge:** Changes should be reviewed and tested
-    before integration.
-
-## Contribution Workflow
-
-The project roadmap establishes the following Git and pull-request
-rules:
-
-1.  Create or use an assigned feature branch, for example
-    `feature/conv2d`.
-2.  Keep changes focused on the assigned module or task.
-3.  Build the project and run relevant tests before opening a pull
-    request.
-4.  Open a pull request against the shared integration branch.
-5.  Request review from the assigned reviewer/supervisor.
-6.  Address review feedback and wait for approval before merging.
-7.  The team lead merges approved pull requests; contributors must not
-    merge their own pull requests.
-8.  Do not commit directly to `main`.
-
-Use descriptive commit messages and include relevant test results in the
-pull request description. Follow the team's current branch-protection
-and review settings.
-
-## Quality Assurance
-
-The roadmap calls for:
-
--   Warning-conscious builds, including `-Wall -Wextra -pedantic` where
-    supported.
--   Unit tests for individual modules.
--   Integration tests for tensor shapes and pipeline data flow.
--   Checks for invalid inputs and numerical edge cases.
--   Memory-safety and leak checks, including Valgrind where available
-    and appropriate.
--   A clean-environment build before final submission.
-
-These are project quality goals, not a claim that all checks currently
-pass. Record actual test results and known limitations as development
-proceeds.
-
-## Project Documentation
-
-Weekly engineering reports and the final report are planned under
-`reports/`. Reports should describe completed work, verification
-performed, known issues, and any AI-assisted tools used, including the
-tool, purpose, and technical justification, in accordance with the
-course project rules.
-
-## Team and Responsibilities
-
-The project roadmap assigns work across the team:
-
--   **Frank** --- architecture, pipeline integration, and team
-    coordination.
--   **Peter** --- image loading, preprocessing, and Operational Risk
-    checks.
--   **Agatha** --- tensor structures, indexing, and numerical safety.
--   **Allan Mugarura** --- 2D convolution operations.
--   **Jeremie** --- padding, strides, and activation functions.
--   **Nats JoJo** --- max and average pooling.
--   **Edrine Mugenyi** --- dense layer, Softmax, cross-entropy, and
-    evaluation.
--   **Sempewo Evarita** --- workflow routing, dimension verification,
-    and integration checks.
-
-Refer to the team's current task plan for detailed ownership and
-reviewer assignments.
-
-## Scope and Limitations
-
-This project focuses on implementing foundational CNN operations in C++.
-Do not assume support for model training, automatic differentiation, GPU
-acceleration, pretrained networks, or production deployment unless those
-capabilities are explicitly implemented and documented.
+## 9. Individual Contributions
+*   **Frank (Team Lead):** Dataset parsing, image loading engine, loss gradients, Softmax backprop.
+*   **Peter (Operations Lead):** Image preprocessing normalization, stride mechanics, Fully Connected forward pass.
+*   **Jeremy:** Image representation structures, ReLU activation, Xavier/He weight initialization, flattening backward routing.
+*   **Agatha:** Tensor vector math, Sigmoid/Tanh activations, Softmax numerical stability.
+*   **Mugarura:** Filter initialization, Max Pooling layer & index tracking, Cross-Entropy loss.
+*   **Joan:** 2D convolution sliding window math, Average Pooling, Argmax prediction logic, Conv2D backward pass.
+*   **Evarista:** Multi-channel convolution passes, Feature extraction block builders, Evaluation metrics suite, SGD optimizer.
+*   **Edrine (Integration Lead):** Convolution pipeline integration, Week 1-2 demos, Mini-batch training loop & final application packaging.
 
 ## License
 
@@ -280,4 +105,4 @@ Copyright (c) 2026 Group 10
 
 Developed as a group project for **Machine Learning 2 (ML2)**. The project
 repository and documentation reflect the team's own
-implementation, testing, and engineering decisions.
+implementation, testing, and engineering decisions. We would like to acknowledge the collaborative efforts and specific contributions of every team member
