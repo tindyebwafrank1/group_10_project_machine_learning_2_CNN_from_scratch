@@ -40,45 +40,20 @@ modules have been completed and verified.
 -   Maintain a modular codebase with unit tests and runnable examples.
 
 ## Planned Features
+# Component Responsibilities
 
-  -----------------------------------------------------------------------
-  Component                           Intended responsibility
-  ----------------------------------- -----------------------------------
-  Image loading and preprocessing     Load image data, validate paths and
-                                      inputs, and scale/normalize pixel
-                                      values
-
-  Tensor operations                   Dynamic N-dimensional
-                                      representation, indexing, shape
-                                      checks, and numerical safety
-
-  2D convolution                      Apply convolution kernels and
-                                      accumulate feature values
-
-  Padding and strides                 Handle spatial borders and control
-                                      filter movement
-
-  Activation functions                Element-wise ReLU, Sigmoid, and
-                                      Leaky ReLU
-
-  Pooling                             Max pooling and average pooling
-                                      over spatial windows
-
-  Dense layer                         Flatten features and perform
-                                      weight-based matrix/vector
-                                      calculations
-
-  Softmax and cross-entropy           Convert scores to probabilities and
-                                      calculate classification loss
-
-  Pipeline and verification           Connect processing stages and
-                                      verify dimension compatibility
-
-  Evaluation utilities                Support prediction and evaluation
-                                      measures as implementation
-                                      progresses
-  -----------------------------------------------------------------------
-
+| Component | Intended Responsibility |
+|----------------------|-----------------------------------------|
+| **Image loading and preprocessing** | Load image data, validate paths and inputs, and scale/normalize pixel values. |
+| **Tensor operations** | Dynamic N-dimensional representation, indexing, shape checks, and numerical safety. |
+| **2D convolution** | Apply convolution kernels and accumulate feature values. |
+| **Padding and strides** | Handle spatial borders and control filter movement. |
+| **Activation functions** | Element-wise ReLU, Sigmoid, and Leaky ReLU. |
+| **Pooling** | Max pooling and average pooling over spatial windows. |
+| **Dense layer** | Flatten features and perform weight-based matrix/vector calculations. |
+| **Softmax and cross-entropy** | Convert scores to probabilities and calculate classification loss. |
+| **Pipeline and verification** | Connect processing stages and verify dimension compatibility. |
+| **Evaluation utilities** | Support prediction and evaluation measures as implementation progresses. |
 These are the planned responsibilities from the project roadmap;
 availability and completeness depend on the current state of the source
 code.
@@ -297,7 +272,7 @@ acceleration, pretrained networks, or production deployment unless those
 capabilities are explicitly implemented and documented.
 
 ## License
-This project is licensed under the MIT License. See the [`LICENSE`](LICENSE) file for the full license text.
+This project is licensed under the MIT License. See the [`LICENSE`](../group_10_project_machine_learning_2_CNN_from_scratch/ConvolutionalNeuralNetwork/LICENSE) file for the full license text.
 
 Copyright (c) 2026  Group 10
 
