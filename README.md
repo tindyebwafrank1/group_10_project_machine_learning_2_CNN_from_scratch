@@ -272,10 +272,10 @@ acceleration, pretrained networks, or production deployment unless those
 capabilities are explicitly implemented and documented.
 
 ## License
-This project is licensed under the MIT License. See the [`LICENSE`](../group_10_project_machine_learning_2_CNN_from_scratch/ConvolutionalNeuralNetwork/LICENSE) file for the full license text.
 
-Copyright (c) 2026  Group 10
+This project is licensed under the MIT License. See the [`LICENSE`](ConvolutionalNeuralNetwork/LICENSE) file for the full license text.
 
+Copyright (c) 2026 Group 10
 ## Acknowledgements
 
 Developed as a group project for **Machine Learning 2 (ML2)**. The project
