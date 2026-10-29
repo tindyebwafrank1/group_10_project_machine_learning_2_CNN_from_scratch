@@ -10,7 +10,7 @@
 
 using namespace std;
 
-// MODULE 8: SYSTEM INTEGRATION AND DEMONSTRATION
+// SYSTEM INTEGRATION AND DEMONSTRATION
 
 class PipelineIntegrationManager {
 public:
@@ -93,9 +93,9 @@ public:
 };
 
 int main() {
-    cout << "========================================\n";
+    cout << "\n";
     cout << " CNN SYSTEM INTEGRATION DEMONSTRATION\n";
-    cout << "========================================\n\n";
+    cout << "\n\n";
 
     try {
         bool boundsPassed =
@@ -104,7 +104,7 @@ int main() {
         bool convolutionPassed =
             PipelineIntegrationManager::testConvolution();
 
-        cout << "\n========== VALIDATION SUMMARY ==========\n";
+        cout << "\n VALIDATION SUMMARY \n";
 
         cout << "Tensor bounds test: "
              << (boundsPassed ? "PASSED" : "FAILED") << '\n';
