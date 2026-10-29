@@ -63,20 +63,20 @@ file(GLOB EXAMPLE_SOURCES CONFIGURE_DEPENDS
     "${CMAKE_CURRENT_SOURCE_DIR}/examples/*.cpp"
 )
 
-foreach(example_src IN LISTS EXAMPLE_SOURCES)
-    get_filename_component(example_name "${example_src}" NAME_WE)
+# foreach(example_src IN LISTS EXAMPLE_SOURCES)
+#     get_filename_component(example_name "${example_src}" NAME_WE)
 
-   if(example_name STREQUAL "fully_connected_training_demo"
-   OR example_name STREQUAL "fully_connected_demo"
-   OR example_name STREQUAL "stride_demo")
+#    if(example_name STREQUAL "fully_connected_training_demo"
+#    OR example_name STREQUAL "fully_connected_demo"
+#    OR example_name STREQUAL "stride_demo")
 
-    message(STATUS "Temporarily skipping ${example_name}: needs fixing")
+#     message(STATUS "Temporarily skipping ${example_name}: needs fixing")
 
-else()
-    add_executable("${example_name}" "${example_src}")
-    target_link_libraries("${example_name}" PRIVATE cnn_lib)
-endif()
-endforeach()
+# else()
+#     add_executable("${example_name}" "${example_src}")
+#     target_link_libraries("${example_name}" PRIVATE cnn_lib)
+# endif()
+# endforeach()
 
 # Build and register unit tests
 include(CTest)
