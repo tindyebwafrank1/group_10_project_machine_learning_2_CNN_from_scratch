@@ -1,23 +1,23 @@
-    PROGRESSIVE WEEKLY REPORT
+# PROGRESSIVE WEEKLY REPORT
 
-        WEEK 04
+## WEEK 04
 
-    Group Members and Work Done
+### Group Members and Work Done
 
-| # | Group Member                      | Work Done |
+| # | Group Member | Work Done |
+|---|---|---|
+| 1 | Tindyebwa Frank (Leader) | Implemented loss gradient computation and the Softmax backpropagation derivative. |
+| 2 | Kweyamba Peter (Risk Manager) | Worked on fully connected layer gradients, including gradients for weights, biases, and inputs. |
+| 3 | Atugonza Jeremy | Worked on flattening layer gradient routing to propagate gradients back to the original feature maps. |
+| 4 | Namukasa Agatha | Implemented activation gradients for ReLU, Sigmoid, and Tanh functions. |
+| 5 | Mugarura Allan | Worked on Max Pooling and Average Pooling backward passes, including gradient distribution. |
+| 6 | Mugenyi Edrine | Worked on the Conv2D backward pass, including kernel gradients and input spatial gradients. |
+| 7 | Evarista | Worked on the Stochastic Gradient Descent (SGD) optimizer step for updating model parameters. |
+| 8 | Wanyenze Joan Natseba | Worked on the mini-batch training loop, epoch execution, integration, and final release package. |
 
-| 1 | Tindyebwa Frank (Leader)          | Implemented loss gradient computation and the Softmax backpropagation derivative. |
-| 2 | Kweyamba Peter (Risk Manager)     | Worked on fully connected layer gradients, including gradients for weights, biases, and inputs. |
-| 3 | Atugonza Jeremy                   | Worked on flattening layer gradient routing to propagate gradients back to the original feature maps. |
-| 4 | Namukasa Agatha                   | Implemented activation gradients for ReLU, Sigmoid, and Tanh functions. |
-| 5 | Mugarura Allan                    | Worked on Max Pooling and Average Pooling backward passes, including gradient distribution. |
-| 6 | Mugenyi Edrine                    | Worked on the Conv2D backward pass, including kernel gradients and input spatial gradients. |
-| 7 | Evarista                          | Worked on the Stochastic Gradient Descent (SGD) optimizer step for updating model parameters. |
-| 8 | Wanyenze Joan Natseba             | Worked on the mini-batch training loop, epoch execution, integration, and final release package. |
+---
 
-
-Progress
-
+### Progress
 
 During Week 4, the group focused on extending the CNN implementation from forward propagation to backpropagation and optimization. The main areas of development included loss gradient computation, fully connected layer gradients, flattening gradient routing, activation gradients, pooling backward passes, convolution backward propagation, parameter optimization, and mini-batch training.
 
@@ -31,9 +31,9 @@ The Conv2D backward pass computes gradients with respect to the convolution kern
 
 The mini-batch training loop coordinates the training process by dividing training data into batches, performing forward propagation, calculating the loss, executing backpropagation, and updating parameters. Epoch execution repeats this process over the training dataset. The final integration and release activities bring the individual components together into the project deliverable.
 
+---
 
-Challenges Faced
-
+### Challenges Faced
 
 The main challenges during Week 4 involve ensuring that gradients have the correct dimensions and are routed to the appropriate layers. Backpropagation requires careful handling of tensor shapes, matrix operations, activation derivatives, and pooling indices.
 
@@ -41,9 +41,9 @@ Additional challenges include calculating convolution kernel and input gradients
 
 These challenges require checking mathematical expressions, validating tensor dimensions, reviewing module interfaces, debugging compilation errors, and performing unit and integration tests. The final release process also requires confirming that the project builds correctly and that the available tests and examples run as expected.
 
+---
 
- Conclusion
-
+### Conclusion
 
 Week 4 focuses on completing the training stage of the CNN by implementing backpropagation and optimization. The assigned components cover loss gradients, fully connected layer gradients, flattening gradient routing, activation derivatives, pooling backward passes, convolution backward propagation, SGD optimization, and mini-batch training.
 
