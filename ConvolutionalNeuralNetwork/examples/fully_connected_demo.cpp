@@ -9,7 +9,7 @@
 #include <limits>
 #include <algorithm>
 
-#include "tensor.hpp"  
+#include "../include/tensor.hpp"  
 
 namespace cnn {
 
