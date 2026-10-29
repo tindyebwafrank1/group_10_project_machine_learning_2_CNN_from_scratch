@@ -3,7 +3,9 @@
 #include <iostream>
 #include <vector>
 
-#include "../include/fully_connected_trainable.hpp"
+#include "../include/fully_connected_backward.hpp"
+
+#include "../include/tensor.hpp"
 
 using namespace std;
 using namespace cnn;
