@@ -5,8 +5,8 @@
 #include <cmath>
 #include <stdexcept>
 
-#include "tensor.hpp"
-#include "multi_channel_convolution.hpp"
+#include "../include/tensor.hpp"
+#include "../include/multi_channel_convolution.hpp"
 
 using namespace std;
 

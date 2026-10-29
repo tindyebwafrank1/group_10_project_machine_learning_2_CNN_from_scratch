@@ -1,7 +1,8 @@
 #include <iostream>
 #include <vector>
 
-#include "strides.hpp"
+#include "../include/strides.hpp"
+#include  "../include/tensor.hpp"
 
 using namespace std;
 using namespace cnn;

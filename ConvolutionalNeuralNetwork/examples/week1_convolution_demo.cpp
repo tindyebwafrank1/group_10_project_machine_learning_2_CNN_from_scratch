@@ -1,8 +1,8 @@
 
 #include <iostream>
 #include <stdexcept>
-#include "tensor.hpp"
-#include "convolution.hpp"
+#include "../include/tensor.hpp"
+#include "../include/convolution.hpp"
 
 using namespace std;
 

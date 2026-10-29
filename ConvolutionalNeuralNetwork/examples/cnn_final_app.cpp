@@ -3,11 +3,11 @@
 #include <cmath>
 #include <stdexcept>
 
-#include "tensor.hpp"
-#include "convolution.hpp"
-#include "relu.hpp"
-#include "max_pooling.hpp"
-#include "week3_forward_utils.hpp"
+#include "../include/tensor.hpp"
+#include "../include/convolution.hpp"
+#include "../include/relu.hpp"
+#include "../include/max_pooling.hpp"
+#include "../include/week3_forward_utils.hpp"
 
 using namespace std;
 

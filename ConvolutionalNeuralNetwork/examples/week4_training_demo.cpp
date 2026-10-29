@@ -1,4 +1,4 @@
-#include "training.hpp"
+#include "../include/training.hpp"
 
 #include <iomanip>
 #include <iostream>
