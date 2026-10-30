@@ -3,13 +3,17 @@
 
 #include <vector>
 #include <cstddef>
+using namespace std;
+
+    
+// namespace name
 
 // Tensor stores 4D data (N, C, H, W) in one flat block of memory
 class Tensor
 {
 public:
-    std::vector<double> data; // flat storage of all values
-    std::vector<size_t> shape; // {N, C, H, W}
+    vector<double> data; // flat storage of all values
+    vector<size_t> shape; // {N, C, H, W}
 
     Tensor();
     Tensor(size_t n, size_t c, size_t h, size_t w);
