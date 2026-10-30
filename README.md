@@ -98,7 +98,7 @@ ctest --test-dir build
 
 ## License
 
-This project is licensed under the MIT License. See the [`LICENSE`](ConvolutionalNeuralNetwork/LICENSE) file for the full license text.
+This project is licensed under the MIT License. See the [`LICENSE`](LICENSE) file for the full license text.
 
 Copyright (c) 2026 Group 10
 ## Acknowledgements
