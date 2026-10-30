@@ -99,6 +99,10 @@ The project utilizes CMake to build the static `cnn_lib` and link it against the
 
 The following figure demonstrates a clean, error-free compilation of the entire library, all 33 test executables, and the demonstration applications.
 
+## Build & Compilation steps (via terminal)
+1. **cmake -S . -B build -G "MinGW Makefiles"*
+2. **cmake --build build*
+
 ![Successful CMake Compilation](../data/build.jpeg)
 *(Figure 1: Terminal output confirming a 100% successful build across all targets.)*
 
@@ -115,6 +119,9 @@ A custom C++ unit testing framework was developed and integrated with CMake and 
 *   **Spatial Layers:** Padding, single/multi-channel convolutions, max/average pooling.
 *   **Dense Layers:** Fully connected forward/backward passes, Softmax numerical stability, and Cross-Entropy loss.
 *   **Optimization:** Complete backpropagation loops and SGD optimization.
+
+## Testing steps (via terminal)
+1. **ctest --test-dir build --output-on-failure*
 
 ### 5.3 Results
 The testing suite executes in under 2 seconds and yields a **100% pass rate (33/33 tests passed)**.

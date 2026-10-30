@@ -1,3 +1,0 @@
-"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\test_fully_connected.dir/objects.a
-C:\MinGW\bin\ar.exe qc CMakeFiles\test_fully_connected.dir/objects.a @CMakeFiles\test_fully_connected.dir\objects1.rsp
-C:\MinGW\bin\c++.exe -Wl,--whole-archive CMakeFiles\test_fully_connected.dir/objects.a -Wl,--no-whole-archive -o test_fully_connected.exe -Wl,--out-implib,libtest_fully_connected.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\test_fully_connected.dir\linkLibs.rsp
