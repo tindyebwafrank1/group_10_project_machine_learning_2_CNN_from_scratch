@@ -52,8 +52,8 @@ The library utilizes a **Functional API** for its mathematical operations. Rathe
 1. **Creation:** `Tensor` (representing 4D data blocks: \(N \times C \times H \times W\)).
 2. **Rationale:** To store raw images and feature maps in contiguous memory blocks, facilitating efficient multidimensional indexing across batch size, channels, and spatial dimensions.
 3. **Data Held:** 
-    *   `std::vector<double> data`: A 1D contiguous vector storing all floating-point values.
-    *   `std::vector<size_t> shape`: Dimensions vector `{N, C, H, W}`.
+    *   `vector<double> data`: A 1D contiguous vector storing all floating-point values.
+    *   `vector<size_t> shape`: Dimensions vector `{N, C, H, W}`.
 4. **Core Functions:**
     *   `Tensor(...)`: Allocates memory based on the requested shape.
     *   `operator()(n, c, h, w)`: Provides multi-index element access.
