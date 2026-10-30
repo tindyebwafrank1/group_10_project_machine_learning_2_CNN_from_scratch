@@ -1,3 +1,0 @@
-"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\week2_cnn_feature_demo.dir/objects.a
-C:\MinGW\bin\ar.exe qc CMakeFiles\week2_cnn_feature_demo.dir/objects.a @CMakeFiles\week2_cnn_feature_demo.dir\objects1.rsp
-C:\MinGW\bin\c++.exe -Wl,--whole-archive CMakeFiles\week2_cnn_feature_demo.dir/objects.a -Wl,--no-whole-archive -o week2_cnn_feature_demo.exe -Wl,--out-implib,libweek2_cnn_feature_demo.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\week2_cnn_feature_demo.dir\linkLibs.rsp
