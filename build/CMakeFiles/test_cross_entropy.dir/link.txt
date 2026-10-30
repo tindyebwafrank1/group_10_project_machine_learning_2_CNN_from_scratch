@@ -1,3 +1,0 @@
-"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\test_cross_entropy.dir/objects.a
-C:\MinGW\bin\ar.exe qc CMakeFiles\test_cross_entropy.dir/objects.a @CMakeFiles\test_cross_entropy.dir\objects1.rsp
-C:\MinGW\bin\c++.exe -Wl,--whole-archive CMakeFiles\test_cross_entropy.dir/objects.a -Wl,--no-whole-archive -o test_cross_entropy.exe -Wl,--out-implib,libtest_cross_entropy.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\test_cross_entropy.dir\linkLibs.rsp

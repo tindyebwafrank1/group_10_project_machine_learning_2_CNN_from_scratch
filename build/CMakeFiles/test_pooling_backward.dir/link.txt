@@ -1,3 +1,0 @@
-"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\test_pooling_backward.dir/objects.a
-C:\MinGW\bin\ar.exe qc CMakeFiles\test_pooling_backward.dir/objects.a @CMakeFiles\test_pooling_backward.dir\objects1.rsp
-C:\MinGW\bin\c++.exe -Wl,--whole-archive CMakeFiles\test_pooling_backward.dir/objects.a -Wl,--no-whole-archive -o test_pooling_backward.exe -Wl,--out-implib,libtest_pooling_backward.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\test_pooling_backward.dir\linkLibs.rsp
