@@ -53,9 +53,13 @@ The library is compiled using CMake and MinGW/GCC. It builds cleanly with strict
 ### Build Instructions
 To compile the library, tests, and examples, run the following commands from the project root:
 
+make sure you are in the ConvolutionNeuralNetwork folder
+
 ```powershell
 # 1. Configure CMake
-cmake -S ConvolutionalNeuralNetwork -B build -G "MinGW Makefiles"
+cmake -S . -B build -G "MinGW Makefiles"
+
+
 
 # 2. Build the project
 cmake --build build
