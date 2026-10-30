@@ -126,7 +126,7 @@ A custom C++ unit testing framework was developed and integrated with CMake and 
 ### 5.3 Results
 The testing suite executes in under 2 seconds and yields a **100% pass rate (33/33 tests passed)**.
 
-![CTest 100% Pass Rate](../data/tests.png)
+![CTest 100% Pass Rate](../data/tests.jpeg)
 *(Figure 2: CTest execution results confirming 100% test success.)*
 
 ---
