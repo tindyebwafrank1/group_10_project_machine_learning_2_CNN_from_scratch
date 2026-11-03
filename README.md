@@ -50,6 +50,11 @@ The library provides reusable C++ components for core CNN operations:
 ## 6. Demonstration of the Working Library
 The library is compiled using CMake and MinGW/GCC. It builds cleanly with strict adherence to C++17 standards (`-Wall -Wextra -Wpedantic`).
 
+### CMake install instructions
+winget --version
+winget install --id Kitware.CMake --exact --source winget
+
+
 ### Build Instructions
 To compile the library, tests, and examples, run the following commands from the project root:
 
