@@ -6,7 +6,8 @@
 
 using namespace std;
 
-// Calculates categorical cross-entropy for one prediction.
+namespace cnn {
+    // Calculates categorical cross-entropy for one prediction.
 // probabilities and targets must have the same length.
 double crossEntropyLoss(
     const vector<double>& probabilities,
@@ -21,5 +22,7 @@ double crossEntropyLossBatch(
     const vector<vector<double>>& targets,
     double epsilon = 1e-12
 );
+
+}
 
 #endif
