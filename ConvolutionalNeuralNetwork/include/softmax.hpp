@@ -10,14 +10,14 @@ using namespace std;
 
 namespace cnn {
 
-// Softmax layer (Week 3)
+
 // Input: scores of shape {N, C, 1, 1} (output of the fully connected layer)
 // Output: probabilities of the same shape, each sample sums to 1
 // forward() is a template so it works with any tensor that has
 // .data and .shape (the project Tensor and the FullyConnected Tensor)
 class Softmax {
 private:
-    vector<double> last_output_; // saved probabilities for Week 4
+    vector<double> last_output_; // saved probabilities
 
 public:
     template <class T>
@@ -68,6 +68,7 @@ public:
                 out.data[base + c] /= sum;
             }
         }
+        //caching the last output for later use
 
         last_output_ = out.data;
         return out;
