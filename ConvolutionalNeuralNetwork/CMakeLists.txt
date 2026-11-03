@@ -1,52 +1,23 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.10)
 
-project(ConvolutionalNeuralNetwork
-    VERSION 1.0
-    LANGUAGES CXX
-)
+project(ConvolutionalNeuralNetwork LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# Compiler warnings
-if(MSVC)
-    add_compile_options(/W4)
-else()
-    add_compile_options(-Wall -Wextra -Wpedantic)
-endif()
-
-# Project headers
+# Project directories
 set(CNN_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include")
 
-# Reusable CNN implementation modules.
-# Standalone legacy programs are intentionally excluded.
-set(CNN_SOURCES
-    src/convolution.cpp
-    src/convolution_backward.cpp
-    src/cross_entropy.cpp
-    src/feature_block.cpp
-    src/filter_initialization.cpp
-    src/flatten.cpp
-    src/flatten_backward.cpp
-    src/fully_connected.cpp
-    src/fully_connected_backward.cpp
-    src/image.cpp
-    src/image_loader.cpp
-    src/loss_gradient.cpp
-    src/max_pooling.cpp
-    src/metrics.cpp
-    src/multi_channel_convolution.cpp
-    src/padding.cpp
-    src/pooling.cpp
-    src/pooling_backward.cpp
-    src/prediction.cpp
-    src/relu.cpp
-    src/sgd_optimizer.cpp
-    src/strides.cpp
-    src/tensor.cpp
-    src/training.cpp
-    src/weight_initialization.cpp
+# Collect source files
+file(GLOB CNN_SOURCES CONFIGURE_DEPENDS
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
+)
+
+# Exclude standalone programs containing their own main()
+# and duplicate Tensor implementations.
+list(FILTER CNN_SOURCES EXCLUDE REGEX
+    ".*/(cnn_forward_pipeline|feature_integration)\\.cpp$"
 )
 
 # Reusable CNN library
@@ -56,7 +27,7 @@ target_include_directories(cnn_lib
     PUBLIC "${CNN_INCLUDE_DIR}"
 )
 
-# Build demonstration programs separately.
+# Demonstration programs
 file(GLOB EXAMPLE_SOURCES CONFIGURE_DEPENDS
     "${CMAKE_CURRENT_SOURCE_DIR}/examples/*.cpp"
 )
@@ -64,37 +35,28 @@ file(GLOB EXAMPLE_SOURCES CONFIGURE_DEPENDS
 foreach(example_src IN LISTS EXAMPLE_SOURCES)
     get_filename_component(example_name "${example_src}" NAME_WE)
 
-    # We are only skipping fully_connected_demo since it hasn't been fixed yet.
-    if(example_name STREQUAL "fully_connected_demo")
-        message(STATUS "Temporarily skipping ${example_name}: needs fixing")
-    else()
-        add_executable("${example_name}" "${example_src}")
-        target_link_libraries("${example_name}" PRIVATE cnn_lib)
-    endif()
+    add_executable("${example_name}" "${example_src}")
+
+    target_link_libraries("${example_name}" PRIVATE cnn_lib)
 endforeach()
 
-# Build and register unit tests
-include(CTest)
+# Testing
+enable_testing()
 
-if(BUILD_TESTING)
-    file(GLOB TEST_SOURCES CONFIGURE_DEPENDS
-        "${CMAKE_CURRENT_SOURCE_DIR}/tests/test_*.cpp"
+file(GLOB TEST_SOURCES CONFIGURE_DEPENDS
+    "${CMAKE_CURRENT_SOURCE_DIR}/tests/*.cpp"
+)
+
+foreach(test_src IN LISTS TEST_SOURCES)
+    get_filename_component(test_name "${test_src}" NAME_WE)
+
+    add_executable("${test_name}" "${test_src}")
+
+    target_link_libraries("${test_name}" PRIVATE cnn_lib)
+
+    add_test(NAME "${test_name}" COMMAND "${test_name}")
+
+    set_tests_properties("${test_name}" PROPERTIES
+        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
     )
-
-    foreach(test_src IN LISTS TEST_SOURCES)
-        get_filename_component(test_name "${test_src}" NAME_WE)
-
-        add_executable("${test_name}" "${test_src}")
-        target_link_libraries("${test_name}" PRIVATE cnn_lib)
-        
-        add_test(
-            NAME "${test_name}"
-            COMMAND "${test_name}"
-        )
-
-        set_tests_properties("${test_name}" PROPERTIES
-            WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-        )
-
-    endforeach()
-endif()
+endforeach()
