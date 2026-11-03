@@ -6,7 +6,7 @@
 
    |#|NAME|COURSE|REGISTRATION NUMBER|
 |------------|----------|--------|------------|
-|1.|TINDEBWA FRANK|BCCE|25/U/08788/PS|
+|1.|TINDYEBWA FRANK|BCCE|25/U/08788/PS|
 |2.|KWEYAMBA PETER|BCCE|25/U/08736/PS|
 |3.|ATUGONZA JEREMY|BCCE|25/U/02151/PS|
 |4.|MUGENYI EDRINE|BCCE|25/U/08751/PS|
@@ -34,7 +34,6 @@ The resulting artifact is a modular, highly reusable static library (`cnn_lib`) 
 ### 2.1 Directory Structure
 The project adheres to professional C++ directory conventions, ensuring that the core logic is entirely decoupled from the test suites and demonstration programs.
 
-```text
 ConvolutionalNeuralNetwork/
 ├── CMakeLists.txt
 ├── include/                  # Public API headers
