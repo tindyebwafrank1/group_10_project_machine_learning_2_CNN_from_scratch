@@ -207,9 +207,9 @@ int main(int argc, char* argv[]) {
             );
         }
 
-        cout << "\n========================================\n";
+        cout << "\n\n";
         cout << "DATASET SUMMARY\n";
-        cout << "========================================\n";
+        cout << "\n";
 
         size_t trainCats = 0;
         size_t trainDogs = 0;
@@ -264,9 +264,9 @@ int main(int argc, char* argv[]) {
             learningRate
         );
 
-        // ====================================
+    
         // SAVE MODEL
-        // ====================================
+        
 
         if (!model.save("dog_cat_model.txt")) {
             throw runtime_error(
@@ -276,9 +276,9 @@ int main(int argc, char* argv[]) {
 
         cout << "\nModel saved successfully.\n";
 
-        // ====================================
+        
         // EVALUATION
-        // ====================================
+        
 
         cout << "\n========================================\n";
         cout << "TESTING CNN CLASSIFIER\n";
@@ -342,9 +342,9 @@ int main(int argc, char* argv[]) {
             cout << '\n';
         }
 
-        // ====================================
+        
         // CALCULATE METRICS
-        // ====================================
+        
 
         double accuracy =
             100.0 * correct /
@@ -352,7 +352,7 @@ int main(int argc, char* argv[]) {
 
         cout << "\n========================================\n";
         cout << "CONFUSION MATRIX\n";
-        cout << "========================================\n";
+        cout << "\n";
 
         cout << "                 Predicted CAT  Predicted DOG\n";
 
