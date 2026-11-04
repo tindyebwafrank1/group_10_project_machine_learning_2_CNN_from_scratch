@@ -6,45 +6,53 @@
 #include <cstddef>
 
 #include "image_loader.hpp"
-
-using namespace std;
+#include "tensor.hpp"
 
 namespace cnn {
 
 struct DogCatSample {
-    vector<double> features;
+    std::vector<double> features;
     size_t label; // 0 = CAT, 1 = DOG
 };
 
 class DogCatModel {
 private:
-    vector<vector<double>> weights;
-    vector<double> biases;
+    // Convolution layer: 8 filters, 3 input channels, 3x3 kernels.
+    Tensor conv_filters;
+    std::vector<double> conv_biases;
+
+    // Fully connected output layer.
+    std::vector<std::vector<double>> dense_weights;
+    std::vector<double> dense_biases;
+
     size_t feature_count;
+    bool initialized;
 
 public:
     DogCatModel();
 
     bool extractFeatures(
-        const string& filename,
-        vector<double>& features
+        const std::string& filename,
+        std::vector<double>& features
     ) const;
 
     void train(
-        const vector<DogCatSample>& samples,
+        const std::vector<DogCatSample>& samples,
         size_t epochs,
         double learning_rate
     );
 
-    size_t predict(const vector<double>& features) const;
-
-    vector<double> predictProbabilities(
-        const vector<double>& features
+    size_t predict(
+        const std::vector<double>& features
     ) const;
 
-    bool save(const string& filename) const;
+    std::vector<double> predictProbabilities(
+        const std::vector<double>& features
+    ) const;
 
-    bool load(const string& filename);
+    bool save(const std::string& filename) const;
+
+    bool load(const std::string& filename);
 
     size_t getFeatureCount() const;
 };
