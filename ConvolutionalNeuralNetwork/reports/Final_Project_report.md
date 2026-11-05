@@ -108,7 +108,7 @@ The project utilizes CMake to build the static `cnn_lib` and link it against the
 
 The following figure demonstrates a clean, error-free compilation of the entire library, all 33 test executables, and the demonstration applications.
 
-### Build & Compilation Steps (via terminal)
+### 4.1 Build & Compilation Steps (via terminal)
 
 1. `cmake -S . -B build -G "MinGW Makefiles"`
 2. `cmake --build build`
@@ -134,11 +134,11 @@ A custom C++ unit testing framework was developed and integrated with CMake and 
 - **Dense Layers:** Fully connected forward/backward passes, Softmax numerical stability, and Cross-Entropy loss.
 - **Optimization:** Complete backpropagation loops and SGD optimization.
 
-### Testing Steps (via terminal)
+### 5.3 Testing Steps (via terminal)
 
 1. `ctest --test-dir build --output-on-failure`
 
-### 5.3 Results
+### 5.4 Results
 
 The testing suite executes in under 2 seconds and yields a **100% pass rate (33/33 tests passed)**.
 
@@ -169,7 +169,9 @@ The testing suite executes in under 2 seconds and yields a **100% pass rate (33/
 
 ---
 
-## 1. WEEK ONE: DATA INFRASTRUCTURE, TENSORS AND BASIC CONVOLUTION
+## 8. Weekly Task Breakdown
+
+### 8.1 Week One: Data Infrastructure, Tensors and Basic Convolution
 
 | Member | Tasks and Responsibilities | Files Added / Associated Files |
 |--------|----------------------------|-------------------------------|
@@ -182,7 +184,7 @@ The testing suite executes in under 2 seconds and yields a **100% pass rate (33/
 | Evarista (M7) | Implemented multi-channel and multi-filter convolution for processing multiple input channels and filters. | `include/multi_channel_convolution.hpp`, `src/multi_channel_convolution.cpp`, `tests/test_multi_channel_convolution.cpp` |
 | Edrine (M8) | Integrated the initial convolution pipeline and prepared the Week One demonstration. | `src/cnn_forward_pipeline.cpp`, `tests/test_convolution_pipeline.cpp`, `tests/test_cnn_forward_integration.cpp` |
 
-## 2. WEEK TWO: PADDING, STRIDES, ACTIVATIONS AND POOLING
+### 8.2 Week Two: Padding, Strides, Activations and Pooling
 
 | Member | Tasks and Responsibilities | Files Added / Associated Files |
 |--------|----------------------------|-------------------------------|
@@ -195,7 +197,7 @@ The testing suite executes in under 2 seconds and yields a **100% pass rate (33/
 | Evarista (M7) | Developed the CNN feature-extraction block by combining convolution, activation and pooling operations. | `include/feature_block.hpp`, `src/feature_block.cpp`, `tests/test_feature_block.cpp`, `tests/test_cnn_feature_integration.cpp` |
 | Edrine (M8) | Integrated the CNN feature-extraction components and prepared the Week Two demonstration. | `src/feature_integration.cpp`, `examples/week2_cnn_feature_demo.cpp`, `tests/test_cnn_feature_integration.cpp` |
 
-## 3. WEEK THREE: DENSE LAYERS, SOFTMAX AND CLASSIFICATION
+### 8.3 Week Three: Dense Layers, Softmax and Classification
 
 | Member | Tasks and Responsibilities | Files Added / Associated Files |
 |--------|----------------------------|-------------------------------|
@@ -208,7 +210,7 @@ The testing suite executes in under 2 seconds and yields a **100% pass rate (33/
 | Evarista (M7) | Implemented classification evaluation metrics, including accuracy and precision. | `include/metrics.hpp`, `src/metrics.cpp`, `tests/test_metrics.cpp`, `examples/test_metrics_demo.cpp` |
 | Edrine (M8) | Integrated the complete forward CNN classification pipeline and developed the final application demonstration. | `include/dog_cat_model.hpp`, `src/dog_cat_model.cpp`, `examples/dog_cat_classifier.cpp`, `examples/dog_cat_predict.cpp`, `examples/cnn_final_app.cpp`, `tests/test_cnn_forward_integration.cpp` |
 
-## 4. WEEK FOUR: BACKPROPAGATION, OPTIMIZATION AND FINAL DELIVERY
+### 8.4 Week Four: Backpropagation, Optimization and Final Delivery
 
 | Member | Tasks and Responsibilities | Files Added / Associated Files |
 |--------|----------------------------|-------------------------------|
@@ -221,7 +223,9 @@ The testing suite executes in under 2 seconds and yields a **100% pass rate (33/
 | Evarista (M7) | Implemented the Stochastic Gradient Descent (SGD) optimizer for updating network parameters using calculated gradients and the learning rate. | `include/sgd_optimizer.hpp`, `src/sgd_optimizer.cpp`, `tests/test_sgd_optimizer.cpp` |
 | Edrine (M8) | Integrated the mini-batch training loop, epoch execution and final release components. | `include/training.hpp`, `src/training.cpp`, `tests/test_training.cpp`, `examples/fully_connected_training_demo.cpp`, `examples/week4_training_demo.cpp` |
 
-## 5. SUMMARY OF INDIVIDUAL CONTRIBUTIONS THROUGHOUT THE PROJECT
+---
+
+## 9. Summary of Individual Contributions Throughout the Project
 
 | Member | Week One | Week Two | Week Three | Week Four | Overall Contribution |
 |--------|----------|----------|------------|-----------|----------------------|
