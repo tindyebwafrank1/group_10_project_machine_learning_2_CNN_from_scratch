@@ -6,7 +6,7 @@
 
 Task:- Image loading.
 
-Work done:- 1 Created image.h header that defines the image data structure and class.
+Work done:- 1 Created image.hpp header that defines the image data structure and class.
             2 Created the image_loader.hpp header that declares the image loading function.
             3 Downloaded the stb_image.hpp header from nothings/stb repository: stb_image.hpp on GitHub to decode the image file.
             3 Created the imge.cpp file that implements the functions declared in the image.h header.
